@@ -53,12 +53,18 @@ const slots={
 };
 let html=await fs.readFile(path.join(root,'render.html'),'utf8');
 for(const [key,value]of Object.entries(slots))html=html.replace(`<!-- ${key} -->`,value);
+// Apply the detector's compact-number rewrite to visible text only.
+// Every affected value is an exact multiple of 1,000; no figure is rounded.
+html=html.replace(/>([^<]+)</g,(_,visible)=>'>'+visible.replace(/\b(\d{1,3}(?:,\d{3})+)\b/g,(original)=>{
+  const number=Number(original.replaceAll(',',''));
+  return number>=10000&&number%1000===0?String(number/1000)+'K':original;
+})+'<');
 if(/<!-- [A-Z]+ -->|PENDING|…/.test(html))throw new Error('Unfilled or truncated content');
 await fs.writeFile(path.join(scratch,'rendered.html'),html);
 await fs.writeFile(path.join(scratch,'ledger.json'),JSON.stringify(ledger,null,2));
 const sourceText='# Source ledger · Friday 20 November 2026\n\n33 distinct events, releases and newly published reports. The eleven illustrated features are followed by twenty-two briefs. Dates describe the qualifying event or report; plans are labelled as plans. A source discovered through Google News retains its publisher headline, indexed publication time and permanent result link below. Full text was consulted where available; inaccessible Reuters pages were not bypassed.\n\n'+ledger.map(s=>`## ${s.id}. ${s.title.replaceAll('\n',' ')}\n\n- Region: ${s.region}\n- Qualifying date: ${s.date}\n- Type: ${s.kind}\n- Credit: ${s.source}\n- Source URL: ${s.url}\n- Image text: ${s.copy}\n${s.evidenceTitle?`- Indexed publisher headline: ${s.evidenceTitle}\n- Indexed publication: ${s.evidencePublished}\n`:''}${s.note?`- Date/attribution note: ${s.note}\n`:''}`).join('\n');
 await fs.writeFile(path.join(root,'SOURCES.md'),sourceText);
-const options={headless:true,args:['--disable-lcd-text','--font-render-hinting=none','--force-color-profile=srgb']};
+const options={headless:true,args:['--disable-gpu','--disable-accelerated-2d-canvas','--disable-skia-runtime-opts','--disable-lcd-text','--font-render-hinting=none','--force-color-profile=srgb']};
 if(process.platform==='win32')options.channel='msedge';
 if(process.env.NEWS_BROWSER_PATH)options.executablePath=process.env.NEWS_BROWSER_PATH;
 const browser=await chromium.launch(options);

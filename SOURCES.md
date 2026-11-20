@@ -68,13 +68,13 @@
 
 - Region: OCEANIA
 - Qualifying date: 2026-11-20
-- Type: DAY 2
-- Credit: AP / AFP
-- Source URL: https://news.google.com/rss/articles/CBMiYEFVX3lxTE5Tc1FHcXpfOHRJaU15eUFZNHRjR1BaR2RSbUZLV2ZzcGZlYmt3b2V2b2syc25fNzNnc1F2Vk5zOHd6U1BmdU90N0o1akt4RnJmczAwYTd6VDBSTjZaWmVCUNIBbkFVX3lxTE5xRDRwNl9DX2lGZ3ZPX0JpV0RpOGZNQ2tqYUhQc1d2NjBkRFUxLXBlVFVUNENFdGdwa1d5NHNQYlN4dHNnbXZ3Y00xa3o5RVNpcVQyTkpWUklHQ0c4NTV5SUNJVldOLWN3bDg5MVZn?oc=5
-- Image text: New Zealand’s first innings reaches 368; Henry Nicholls finishes unbeaten on 175.
-- Indexed publisher headline: India punish New Zealand errors after Nicholls’ unbeaten 175 - Prothom Alo English
-- Indexed publication: Fri, 20 Nov 2026 11:58:44 GMT
-- Date/attribution note: Friday Day 2 innings, not a completed Test result. AP’s lunch report separately verifies Phillips’s 118.
+- Type: DAY 2 · LUNCH
+- Credit: AP
+- Source URL: https://news.google.com/rss/articles/CBMi-gFBVV95cUxQeWp5NWtYSHVaZFdPU19DY1dvcU5LZ3l0YXBleFpRYnJldWVOUUdWVE1JS2F6RnR2S3NudWl6dmpabnVGVjVySUtvdndFdzZWQnJHSXpWNFVobGhyZVFBZms1RWJhbkR3emVoTWpuX0hIODVTY0ljNl9xaFFTZHRrbGc3OTU2T0FIcUxIUVFQd3o1Z2hoQ19IM3l5c1pNcjI5M1hjM3N6aTBlQ0NVVlhwXzlEV1lHWXRGY0xRWXFvSTRGOEZ3a3RMb1hvektmZUFfOVpKWUhoVXNBSDRycUhTalZwdEVRMXJoYlFhN3VzMGI1ZDRQZm5KWU9n?oc=5
+- Image text: New Zealand reaches 317–6 at lunch on Day 2 of the first Test; Phillips is out for 118.
+- Indexed publisher headline: Phillips out for 118. New Zealand reaches 317-6 at lunch on Day 2 of 1st cricket test against India - Oskaloosa Herald
+- Indexed publication: Fri, 20 Nov 2026 00:20:03 GMT
+- Date/attribution note: Editorial tightening after source review: use the exact AP lunch-report snapshot carried by the Oskaloosa Herald, rather than combining it with a later AFP innings update. Not a completed Test result.
 
 ## 8. Qatar pledges €15bn in German investment
 

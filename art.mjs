@@ -6,7 +6,8 @@ const line=(d,color='#c7d3db',width=2,more='')=>path(d,'none',`stroke="${color}"
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const text=(x,y,s,size=26,color='#fff',more='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" font-family="Arial,sans-serif" font-weight="700" ${more}>${esc(s)}</text>`;
 const label=(s,fill='#14283b')=>rect(0,190,600,50,fill)+text(300,225,s,29,'#fff','text-anchor="middle"');
-const svg=(id,body,caption)=>`<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(caption)}" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="${id}-air" x2="0" y2="1"><stop stop-color="#749bb2"/><stop offset="1" stop-color="#d9d6c3"/></linearGradient><linearGradient id="${id}-sea" x2="0" y2="1"><stop stop-color="#49899c"/><stop offset="1" stop-color="#1a4d69"/></linearGradient></defs>${body}</svg>`;
+const svg=(id,body,caption,height=240)=>`<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(caption)}" viewBox="0 0 600 ${height}" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="${id}-air" x2="0" y2="1"><stop stop-color="#749bb2"/><stop offset="1" stop-color="#d9d6c3"/></linearGradient><linearGradient id="${id}-sea" x2="0" y2="1"><stop stop-color="#49899c"/><stop offset="1" stop-color="#1a4d69"/></linearGradient></defs>${body}</svg>`;
+const stripLabel=s=>rect(0,130,600,34,'#14283b')+text(300,155,s,25,'#fff','text-anchor="middle"');
 const city=(base,color,seed=0)=>Array.from({length:19},(_,i)=>{const x=i*35-12,h=22+(i*47+seed)%79;return rect(x,base-h,27,h,color)+Array.from({length:3},(_,j)=>rect(x+5,base-h+10+j*17,5,5,'#a5bec3','opacity=".6"')).join('');}).join('');
 function kyiv(){
   const beams=Array.from({length:6},(_,i)=>line(`M${125+i*79} 0Q${60+i*78} 58 ${65+i*76} 146`,'#eda465',2.2)).join('');
@@ -26,50 +27,48 @@ function cop(){
   return svg('cop',rect(0,0,600,240,'#1c494b')+globe+paper+text(37,180,'ANTALYA',18,'#d0dfca')+label('OVERTIME · TALKS CONTINUE'),'COP31 continues beyond its scheduled finish without a final deal');
 }
 function markets(){
-  let board=rect(0,0,600,240,'#182c3c');
-  for(let y=45;y<173;y+=35)board+=line(`M22 ${y}H576`,'#38505d',1);
-  board+=line('M28 49L79 63L125 54L168 91L210 88L247 126L291 112L335 146L381 139L438 169','#ef7c79',6);
-  board+=path('M426 158L451 174L440 145Z','#ef7c79');
-  board+=text(467,56,'TAIEX',20,'#cad9df')+text(465,94,'−6.2%',31,'#f79891')+text(465,130,'20 NOV',18,'#cad9df');
-  return svg('markets',board+label('AI SHARES SELL OFF'),'Friday Asian stock markets fall, Taiex down 6.2 percent');
+  let board=rect(0,0,600,164,'#182c3c');
+  for(const [i,name,value]of [[0,'NIKKEI','−5.1%'],[1,'KOSPI','−5.2%'],[2,'TAIEX','−6.2%']]){
+    const x=18+i*198;board+=rect(x,17,177,98,'#294251')+text(x+88,44,name,23,'#dce5e5','text-anchor="middle"')+text(x+88,94,value,41,'#ffaaa0','text-anchor="middle"');
+  }
+  return svg('markets',board+stripLabel('ASIA · AI SELL-OFF'),'Friday’s reported Asian stock-index losses, not a fabricated intraday price series',164);
 }
 function reset(){
-  let flags=rect(0,0,300,190,'#285088')+rect(300,0,300,190,'#163c6c');
-  for(let i=0;i<12;i++){const a=i*Math.PI/6;flags+=circle(148+56*Math.cos(a),89+56*Math.sin(a),5,'#f1cf66');}
-  flags+=line('M300 0L600 190M600 0L300 190','#fff2df',24)+line('M300 0L600 190M600 0L300 190','#b5424e',9)+rect(424,0,49,190,'#fff2df')+rect(300,70,300,44,'#fff2df')+rect(437,0,23,190,'#b5424e')+rect(300,82,300,20,'#b5424e');
-  const document=path('M195 45H355L396 88V179H195Z','#f2eddc','stroke="#203b4f" stroke-width="2"')+path('M355 45V88H396Z','#c6d4d2')+line('M215 109H374M215 126H359M215 143H340','#6e8f94',3)+text(215,83,'AGREED',24,'#28554f');
-  return svg('reset',flags+document+label('FOOD · YOUTH · CARBON'),'UK and EU agree a reset package on food, youth mobility and carbon markets');
+  let flags=rect(0,0,300,164,'#285088')+rect(300,0,300,164,'#163c6c');
+  for(let i=0;i<12;i++){const a=i*Math.PI/6;flags+=circle(103+43*Math.cos(a),65+43*Math.sin(a),4.2,'#f1cf66');}
+  flags+=line('M360 0L600 130M600 0L360 130','#fff2df',22)+line('M360 0L600 130M600 0L360 130','#b5424e',8)+rect(464,0,43,130,'#fff2df')+rect(360,47,240,38,'#fff2df')+rect(475,0,21,130,'#b5424e')+rect(360,57,240,18,'#b5424e');
+  const document=path('M204 10H333L369 46V121H204Z','#f2eddc','stroke="#203b4f" stroke-width="2"')+path('M333 10V46H369Z','#c6d4d2')+line('M218 69H352M218 84H352M218 99H327','#6e8f94',2.5)+text(218,46,'AGREED',25,'#28554f');
+  return svg('reset',flags+document+stripLabel('FOOD · YOUTH · CARBON'),'UK and EU agree a reset package on food, youth mobility and carbon markets',164);
 }
 function hunger(){
-  const sacks=[50,141,232,323].map((x,i)=>path(`M${x} 164Q${x-16} 104 ${x+5} 54L${x+60} 51Q${x+83} 108 ${x+69} 164Z`,i%2?'#c9b57e':'#dfcf99','stroke="#8b825e" stroke-width="2"')+line(`M${x+5} 65L${x+60} 63`,'#7c7958',2)+text(x+34,123,'WFP',21,'#49655f','text-anchor="middle"')).join('');
-  const ear=line('M480 160V49','#eac56c',3)+[0,1,2,3,4].map(i=>path(`M480 ${70+i*16}Q452 ${68+i*16} 462 ${52+i*16}Q479 ${52+i*16} 480 ${70+i*16}M480 ${78+i*16}Q507 ${72+i*16} 500 ${58+i*16}Q482 ${60+i*16} 480 ${78+i*16}`,'#eac56c')).join('');
-  return svg('hunger',rect(0,0,600,240,'#244d52')+rect(0,160,600,30,'#67877c')+sacks+ear+label('91 MILLION · 2027 AID TARGET'),'WFP launches its 2027 plan to assist 91 million people');
+  const sacks=[35,112,189].map((x,i)=>path(`M${x} 124Q${x-11} 78 ${x+4} 34L${x+48} 32Q${x+67} 80 ${x+56} 124Z`,i%2?'#c9b57e':'#dfcf99','stroke="#8b825e" stroke-width="2"')+line(`M${x+4} 43L${x+48} 41`,'#7c7958',2)+text(x+28,88,'WFP',20,'#49655f','text-anchor="middle"')).join('');
+  return svg('hunger',rect(0,0,600,164,'#244d52')+rect(0,117,600,13,'#67877c')+sacks+text(424,70,'91m',69,'#f2d898','text-anchor="middle"')+text(423,107,'PEOPLE · 2027 PLAN',23,'#f1ead3','text-anchor="middle"')+stripLabel('$12.15bn FUNDING SOUGHT'),'WFP launches its 2027 plan to assist 91 million people',164);
 }
 function cricket(){
   const stands=[0,1,2,3,4,5].map(i=>line(`M0 ${44+i*11}Q300 ${-31+i*11} 600 ${44+i*11}`,'#879e9d',4)).join('');
   const player=circle(274,51,13,'#c09b76')+path('M261 45Q272 27 289 43V49Z','#172d39')+path('M253 70L282 67L303 111L271 125L244 99Z','#f7f3df')+path('M271 121L292 115L315 160H299L275 135L260 169H243Z','#f0eedb')+path('M278 75L306 90L330 70L338 77L310 105L285 91Z','#c09b76')+path('M329 64L340 57L364 104L354 112Z','#d6b77c');
-  return svg('cricket',rect(0,0,600,240,'#b9d4d6')+stands+path('M0 105Q300 61 600 105V190H0Z','#548c70')+path('M213 190L248 112H321L359 190Z','#cfbf96')+player+rect(399,32,173,125,'#163e38')+text(485,67,'PHILLIPS',23,'#dfe5c9','text-anchor="middle"')+text(485,124,'118',57,'#fff3ca','text-anchor="middle"')+label('NEW ZEALAND 368 · DAY 2'),'Glenn Phillips scores 118 in New Zealand’s first innings against India');
+  return svg('cricket',rect(0,0,600,164,'#b9d4d6')+stands+path('M0 89Q300 45 600 89V130H0Z','#548c70')+path('M188 130L226 79H310L345 130Z','#cfbf96')+`<g transform="translate(18 -17) scale(.85)">${player}</g>`+rect(388,10,186,112,'#163e38')+text(481,31,'PHILLIPS',20,'#dfe5c9','text-anchor="middle"')+text(481,104,'118',62,'#fff3ca','text-anchor="middle"')+stripLabel('NEW ZEALAND · FIRST TEST · DAY 2'),'Glenn Phillips scores 118 in New Zealand’s first innings against India',164);
 }
 function qatar(){
-  const towers=city(175,'#557c85',31)+path('M70 174L88 52L116 23L137 174Z','#b0c3ba')+line('M90 59L120 165','#e1dec5',2);
-  const qflag=rect(345,26,106,68,'#f4eddf')+path('M372 26H451V94H372L383 87L372 80L383 73L372 66L383 59L372 52L383 45L372 38L383 31Z','#8c3045');
-  const germany=rect(466,26,108,68,'#d5a950')+rect(466,26,108,23,'#1d2931')+rect(466,49,108,23,'#a94247');
-  return svg('qatar',rect(0,0,600,240,'url(#qatar-air)')+towers+qflag+germany+rect(306,111,267,57,'#f2ecdc')+text(438,152,'€15bn PLEDGED',31,'#234e58','text-anchor="middle"')+label('DOHA + BERLIN · STRATEGIC TIES'),'Qatar pledges 15 billion euros of investment in Germany');
+  const towers=city(130,'#557c85',31)+path('M46 129L61 43L83 17L102 129Z','#b0c3ba')+line('M63 47L88 126','#e1dec5',2);
+  const qflag=rect(331,9,106,38,'#f4eddf')+path('M357 9H437V47H357L367 41L357 35L367 29L357 23L367 17Z','#8c3045');
+  const germany=rect(455,9,108,38,'#d5a950')+rect(455,9,108,13,'#1d2931')+rect(455,22,108,13,'#a94247');
+  return svg('qatar',rect(0,0,600,164,'url(#qatar-air)')+towers+qflag+germany+rect(287,57,294,65,'#f2ecdc')+text(435,102,'€15bn',52,'#234e58','text-anchor="middle"')+stripLabel('QATAR → GERMANY · PLEDGED'),'Qatar pledges 15 billion euros of investment in Germany',164);
 }
 function diamonds(){
   const facets=path('M108 38H270L314 96L188 176L64 96Z','#bddde0','stroke="#eff5e9" stroke-width="2"')+path('M108 38L140 96H64Z','#8cc2cb')+path('M140 96L188 176L235 96Z','#e7f2e8')+path('M140 96L188 38L235 96Z','#d7eddf')+path('M235 96L270 38L314 96Z','#729fab')+line('M64 96H314M188 38L140 96L188 176L235 96Z','#567f8e',2);
-  return svg('diamond',rect(0,0,600,240,'#214851')+facets+text(347,43,'ANGOLA',23,'#d5e6db')+text(347,117,'10%',56,'#f5d390')+text(347,151,'PLANNED STAKE',20,'#d5e6db')+label('$180m · DE BEERS'),'Angola’s planned 180 million dollar purchase of 10 percent of De Beers');
+  return svg('diamond',rect(0,0,600,164,'#214851')+`<g transform="translate(7 -12) scale(.78)">${facets}</g>`+text(412,23,'ANGOLA',18,'#d5e6db','text-anchor="middle"')+text(412,91,'10%',60,'#f5d390','text-anchor="middle"')+text(412,124,'PLANNED STAKE',17,'#d5e6db','text-anchor="middle"')+stripLabel('$180m · DE BEERS'),'Angola’s planned 180 million dollar purchase of 10 percent of De Beers',164);
 }
 function inflation(){
-  const skyline=city(175,'#7c939d',7)+path('M75 175L94 50L114 175Z','#b34a4c')+line('M95 24V175M72 151H119M81 106H110','#e9dbbd',2);
-  const board=rect(275,24,299,143,'#f3efdf')+text(294,59,'CORE CPI',23,'#38535e')+text(422,124,'2.2%',66,'#9d3649','text-anchor="middle"')+text(422,153,'OCTOBER · YEAR ON YEAR',16,'#38535e','text-anchor="middle"');
-  return svg('cpi',rect(0,0,600,240,'url(#cpi-air)')+skyline+circle(218,50,32,'#c25858','opacity=".7"')+board+label('JAPAN · DATA RELEASED TODAY'),'Japan releases October core CPI at 2.2 percent year on year');
+  const skyline=city(130,'#7c939d',7)+path('M65 130L82 43L100 130Z','#b34a4c')+line('M83 19V130M65 109H101M72 81H94','#e9dbbd',2);
+  const board=rect(271,9,312,118,'#f3efdf')+text(427,24,'CORE CPI · OCTOBER',18,'#38535e','text-anchor="middle"')+text(427,91,'2.2%',60,'#9d3649','text-anchor="middle"')+text(427,123,'YEAR ON YEAR',14,'#38535e','text-anchor="middle"');
+  return svg('cpi',rect(0,0,600,164,'url(#cpi-air)')+skyline+circle(207,37,28,'#c25858','opacity=".7"')+board+stripLabel('JAPAN · DATA RELEASED TODAY'),'Japan releases October core CPI at 2.2 percent year on year',164);
 }
 function mercury(){
   const stars=Array.from({length:31},(_,i)=>circle((i*73+19)%600,(i*47+13)%185,i%3===0?1.7:1,'#b2c2cf')).join('');
   const planet=circle(465,92,80,'#b9b5a4')+path('M465 12A80 80 0 0 1 465 172Q514 101 465 12Z','#898f87')+[[437,51,17],[476,111,21],[424,120,12],[488,54,10],[455,90,8]].map(([x,y,r])=>circle(x,y,r,'#8c958f','opacity=".65"')+circle(x-2,y-2,r*.7,'#afb2a1','opacity=".6"')).join('');
   const craft=`<g transform="translate(202 91) rotate(-12)">${rect(-120,-16,78,34,'#3f83ac','stroke="#9ec0ce" stroke-width="2"')}${rect(43,-16,78,34,'#3f83ac','stroke="#9ec0ce" stroke-width="2"')}${[-101,-82,-63,62,81,100].map(x=>line(`M${x} -15V18`,'#abd2dc',1)).join('')}${rect(-34,-30,67,61,'#d9bd75')}${path('M-34-30L-10-43L48-36L33-30Z','#eee0ac')}${circle(0,0,15,'#dce2da')}${circle(0,0,8,'#536c78')}${line('M0 31V54L31 65','#b8c5c8',2)}</g>`;
-  return svg('mercury',rect(0,0,600,240,'#172c43')+stars+line('M46 165Q254 197 383 113','#879ba6',1.3,'stroke-dasharray="5 5"')+planet+craft+text(29,34,'BEPICOLOMBO',26)+label('21 NOV · ORBIT INSERTION PLANNED'),'Friday preview of BepiColombo’s planned Saturday Mercury orbit insertion');
+  return svg('mercury',rect(0,0,600,164,'#172c43')+`<g transform="translate(0 -3) scale(1 .72)">${stars}</g>`+line('M46 112Q254 145 383 79','#879ba6',1.3,'stroke-dasharray="5 5"')+`<g transform="translate(134 -3) scale(.72)">${planet}</g><g transform="translate(15 -4) scale(.8)">${craft}</g>`+text(29,28,'BEPICOLOMBO',24)+stripLabel('21 NOV · ORBIT INSERTION PLANNED'),'Friday preview of BepiColombo’s planned Saturday Mercury orbit insertion',164);
 }
 export const scenes=[kyiv,cyclone,cop,markets,reset,hunger,cricket,qatar,diamonds,inflation,mercury];
 
@@ -92,16 +91,16 @@ export function worldMap(stories,colors){
   const xy=(lon,lat)=>({x:bounds.x+(Number(lon)+180)/360*bounds.w,y:bounds.y+(85-Number(lat))/170*bounds.h});
   let content=rect(0,0,620,338,'#152a3e');
   for(const lat of [-60,-30,0,30,60]){const p=xy(0,lat);content+=line(`M22 ${p.y}H594`,'#3a4b5d',.6);}
-  content+=continents.map(points=>path(points.map(([lon,lat],i)=>{const p=xy(lon,lat);return `${i?'L':'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`;}).join('')+'Z','#c8c8a7','stroke="#edf0d5" stroke-width=".8"')).join('');
+  content+=continents.map(points=>path(points.map(([lon,lat],i)=>{const p=xy(lon,lat);return `${i?'L':'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`;}).join('')+'Z','#e2dfba','stroke="#f4f4db" stroke-width="1"')).join('');
   for(const s of stories.filter(s=>s.lon!==null)){
     const p=xy(s.lon,s.lat),feature=s.id<=11;
-    if(!feature) content+=circle(p.x,p.y,3,colors[s.region],'stroke="#f7f4de" stroke-width=".5"');
+    if(!feature) content+=circle(p.x,p.y,4,colors[s.region],'stroke="#f7f4de" stroke-width=".6"');
   }
   // Offshore numeric labels use leaders to exact event anchors; the Qatar pin marks the investing country.
   const offsets={1:[-28,-24],2:[-21,18],3:[-26,0],4:[15,15],5:[-48,-39],7:[9,20],8:[-14,25],9:[-15,17],10:[28,-13]};
   for(const s of stories.slice(0,11).filter(s=>s.lon!==null)){
     const p=xy(s.lon,s.lat),o=offsets[s.id]||[0,0],x=p.x+o[0],y=p.y+o[1];
-    content+=line(`M${p.x} ${p.y}L${x} ${y}`,'#e7e5d6',1)+circle(p.x,p.y,2.5,'#fff')+circle(x,y,10,colors[s.region],'stroke="#fff" stroke-width="1.7"')+text(x,y+4,String(s.id),13,'#fff','text-anchor="middle"');
+    content+=line(`M${p.x} ${p.y}L${x} ${y}`,'#e7e5d6',1)+circle(p.x,p.y,2.5,'#fff')+circle(x,y,16,colors[s.region],'stroke="#fff" stroke-width="1.7"')+text(x,y+7,String(s.id),21,'#fff','text-anchor="middle"');
   }
   content+=text(28,321,'6 = GLOBAL AID   11 = MERCURY',15,'#d9e2df');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 338" role="img" aria-label="World map keyed to the eleven illustrated features">${content}</svg>`;

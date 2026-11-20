@@ -114,9 +114,9 @@ main { max-width: var(--page-max); margin: 0 auto; padding: 0 clamp(16px, 2.7vw,
 .trophy-row.is-selected { background: var(--turquoise-pale); }
 .earned-control { display: grid; place-items: center; padding-top: 3px; }
 .earned-control input { width: 16px; height: 16px; margin: 0; accent-color: var(--turquoise); cursor: pointer; }
-.row-title { min-width: 0; border: 0; padding: 0; background: transparent; color: var(--petrol); text-align: left; font-size: 12px; font-weight: 700; line-height: 1.3; cursor: pointer; }
+.row-title { min-width: 0; border: 0; padding: 0; background: transparent; color: var(--petrol); text-align: left; font-size: 13px; font-weight: 700; line-height: 1.3; cursor: pointer; }
 .row-title:hover { color: var(--turquoise); text-decoration: underline; text-underline-offset: 2px; }
-.row-description { display: block; margin-top: 3px; color: #4d5d58; font-size: 10px; line-height: 1.35; }
+.row-description { display: block; margin-top: 3px; color: #4d5d58; font-size: 11px; line-height: 1.35; }
 .row-meta { display: flex; justify-content: flex-end; align-items: center; gap: 5px; padding-top: 2px; }
 .grade-badge { display: inline-flex; align-items: center; min-height: 18px; border: 1px solid currentColor; border-radius: 3px; padding: 1px 5px; font-size: 8px; font-weight: 750; line-height: 1; text-transform: capitalize; white-space: nowrap; }
 .grade-badge.platinum { color: var(--platinum); background: #edf1f2; }
@@ -137,12 +137,17 @@ main { max-width: var(--page-max); margin: 0 auto; padding: 0 clamp(16px, 2.7vw,
 .official-description { max-width: 68ch; margin: 0; color: #455752; font-size: 12px; line-height: 1.5; }
 .detail-rule { border: 0; border-top: 1px solid var(--line); margin: 14px 0 13px; }
 .guide-heading { margin: 0 0 6px; color: var(--petrol); font-size: 13px; font-weight: 730; }
-.guide-copy { max-width: 70ch; margin: 0; color: #263a36; font-size: 12px; line-height: 1.55; }
-.confidence-note { display: flex; align-items: flex-start; gap: 7px; margin: 10px 0 0; color: #653811; font-size: 10px; line-height: 1.4; }
+.guide-copy { max-width: 70ch; margin: 0; color: #263a36; font-size: 14px; line-height: 1.5; }
+.confidence-note { display: flex; align-items: flex-start; gap: 7px; border: 1px solid #e4c49e; border-radius: 5px; margin: 10px 0 0; padding: 8px 10px; background: var(--warning-wash); color: #653811; font-size: 12px; line-height: 1.45; }
 .confidence-note strong { color: var(--warning); }
 .detail-citations { display: grid; gap: 5px; margin-top: 12px; }
-.citation-link { width: fit-content; display: inline-flex; align-items: baseline; gap: 5px; color: var(--turquoise); font-size: 10px; font-weight: 690; }
-.citation-scope { display: block; margin: 1px 0 2px 10px; color: var(--muted); font-size: 9px; line-height: 1.35; }
+.citation-link { width: fit-content; display: inline-flex; align-items: baseline; gap: 5px; color: var(--turquoise); font-size: 12px; font-weight: 690; }
+.citation-scope { display: block; margin: 1px 0 2px 10px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+.guide-steps { display: grid; gap: 8px; margin: 11px 0 0; padding: 0; list-style: none; }
+.guide-steps li { display: grid; grid-template-columns: 21px minmax(0, 1fr); gap: 8px; align-items: start; }
+.guide-step-number { width: 19px; height: 19px; display: grid; place-items: center; border: 1px solid var(--turquoise); border-radius: 50%; color: var(--turquoise); font-size: 10px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.guide-step-copy { margin: 0; color: #263a36; font-size: 12px; line-height: 1.4; }
+.guide-step-source { display: inline-block; margin-top: 3px; color: var(--turquoise); font-size: 11px; font-weight: 700; }
 .counter-box { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; }
 .counter-copy { display: grid; gap: 2px; margin-right: auto; }
 .counter-copy strong { color: var(--petrol); font-size: 11px; }
@@ -164,6 +169,10 @@ main { max-width: var(--page-max); margin: 0 auto; padding: 0 clamp(16px, 2.7vw,
 .section-intro h2 { margin: 0 0 8px; color: var(--petrol); font-size: 27px; line-height: 1.15; letter-spacing: 0; text-wrap: balance; }
 .section-intro > p:last-child { max-width: 72ch; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .roadmap-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
+.roadmap-benchmarks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; border: 1px solid var(--line); border-radius: 6px; margin: 0 0 18px; padding: 11px 14px; background: var(--surface); }
+.roadmap-benchmarks p { display: grid; align-content: start; gap: 3px; margin: 0; color: #374a45; font-size: 11px; line-height: 1.4; }
+.roadmap-benchmarks strong { color: var(--petrol); font-size: 12px; }
+.roadmap-benchmarks a { width: fit-content; margin-top: 2px; font-size: 11px; font-weight: 700; }
 .roadmap-stop { min-height: 190px; padding: 18px 22px 20px 0; }
 .roadmap-stop + .roadmap-stop { border-left: 1px solid var(--line); padding-left: 22px; }
 .roadmap-step { display: inline-grid; width: 27px; height: 27px; place-items: center; border: 1px solid var(--turquoise); border-radius: 50%; color: var(--turquoise); font-size: 11px; font-weight: 750; font-variant-numeric: tabular-nums; }
@@ -219,6 +228,7 @@ main { max-width: var(--page-max); margin: 0 auto; padding: 0 clamp(16px, 2.7vw,
   .finder-bar { flex-wrap: wrap; }
   .search-control { flex-basis: 100%; max-width: none; }
   .spoiler-control { margin-left: 5px; }
+  .roadmap-benchmarks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 720px) {
   main { padding-right: 14px; padding-left: 14px; }
@@ -238,6 +248,7 @@ main { max-width: var(--page-max); margin: 0 auto; padding: 0 clamp(16px, 2.7vw,
   .list-pane { min-height: 285px; max-height: 47vh; border-right: 0; border-bottom: 1px solid var(--line); padding-right: 0; }
   .detail-pane { min-height: 340px; overflow: visible; padding: 18px 2px 22px; }
   .roadmap-flow { grid-template-columns: 1fr; }
+  .roadmap-benchmarks { grid-template-columns: 1fr; }
   .roadmap-stop { min-height: 0; padding: 15px 0; }
   .roadmap-stop + .roadmap-stop { border-top: 1px solid var(--line); border-left: 0; padding-left: 0; }
   .source-ledger { grid-template-columns: 1fr; }

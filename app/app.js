@@ -259,6 +259,36 @@
       content.push(confidence);
     }
 
+    if (Array.isArray(trophy.steps) && trophy.steps.length) {
+      const steps = document.createElement('ol');
+      steps.className = 'guide-steps';
+      steps.setAttribute('aria-label', 'Numbered guide steps');
+      for (const [index, step] of trophy.steps.entries()) {
+        const item = document.createElement('li');
+        const number = document.createElement('span');
+        number.className = 'guide-step-number';
+        number.textContent = String(index + 1);
+        const body = document.createElement('div');
+        const copy = document.createElement('p');
+        copy.className = 'guide-step-copy';
+        copy.textContent = step.text;
+        const source = sourceById.get(step.source);
+        body.append(copy);
+        if (source) {
+          const link = document.createElement('a');
+          link.className = 'guide-step-source';
+          link.href = source.url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = step.sourceLabel || source.title;
+          body.append(link);
+        }
+        item.append(number, body);
+        steps.append(item);
+      }
+      content.push(steps);
+    }
+
     if (trophy.target !== null) {
       const counter = document.createElement('div');
       counter.className = 'counter-box';
@@ -291,7 +321,7 @@
       content.push(counter);
     }
 
-    content.push(citationList);
+    if (!Array.isArray(trophy.steps) || !trophy.steps.length) content.push(citationList);
     const footer = document.createElement('div');
     footer.className = 'detail-footer';
     const earnedLabel = document.createElement('label');
@@ -356,9 +386,9 @@
 
   function renderRoadmap() {
     const stages = [
-      { title: 'Protect the first chapter', label: 'Before Chapter 1 ends', text: 'Make a separate save. Accept Lucia’s optional balcony meditation after Down to Earth. The sources say its trophy requirement is uncertain, so doing it early is the low-risk route.', ids: [28, 3] },
+      { title: 'Protect the first chapter', label: 'Before Chapter 1 ends', text: 'Make a separate save. After Down to Earth, check the kitchen for Lucia’s invitation, follow her to the balcony and accept before Chapter 1 ends. The availability window is confirmed; whether missing it blocks the trophy is unverified.', ids: [28, 3] },
       { title: 'Follow the campaign', label: 'Story progress', text: 'Main-story trophies are listed as automatic unlocks. Keep a second save before chapter transitions and the final mission; the sources report no mission replay.', ids: [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] },
-      { title: 'Build repeatable progress', label: 'As activities open', text: 'Use normal travel to scan new vehicles, try each activity type, and work through races, challenges, stunts and collectibles. The source-linked counters help spot what is still missing.', ids: [15, 16, 17, 18, 19, 25, 30, 31, 32, 35] },
+      { title: 'Build repeatable progress', label: 'As activities open', text: 'Work toward 250 stunts (300 for 100%), 50 Challenges (70 for 100%) and 100 vehicle discoveries (200 base models for 100%). Complete Yago’s hourglass-marked Chapter 3 race when it appears; whether it is required for the eight counted strands is unverified.', ids: [15, 16, 17, 18, 19, 25, 30, 31, 32, 35] },
       { title: 'Finish the side strands', label: 'Free-roam cleanup', text: 'Complete named character finales and the remaining gang, robbery and location requirements. Use the trophy counter to confirm each strand counted.', ids: [22, 23, 24, 26, 27, 29, 40, 43] },
       { title: 'Use the checklist, then the sweep', label: 'After the story', text: 'The 100% checklist appears after the story under Progress > Stats > 100% Completion; earlier work still counts. Finish only its missing lines, then return to any trophy-specific requirement left.', ids: [14, 15, 17, 30, 32, 40, 54] },
       { title: 'Check the counter, claim the platinum', label: 'Final pass', text: 'Compare this browser checklist with the PS5 trophy screen, correct any uncertain manual notes, and earn each remaining trophy. The platinum is the final entry once every other trophy is earned.', ids: [1] }

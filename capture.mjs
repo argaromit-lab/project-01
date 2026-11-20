@@ -186,7 +186,11 @@ try {
   await http.page.locator('.trophy-row[data-id="28"] .row-title').click();
   await http.page.locator('.counter-box input').fill('5');
   await http.page.locator('.counter-box input').press('Tab');
-  await http.page.locator('.list-scroll').evaluate((node) => { node.scrollTop = 0; });
+  await http.page.locator('#trophy-detail').evaluate((node) => { node.scrollTop = 0; });
+  await http.page.locator('.list-scroll').evaluate((node) => {
+    const row = node.querySelector('.trophy-row[data-id="20"]');
+    node.scrollTop = row ? row.offsetTop - 8 : 0;
+  });
   assert.equal(await http.page.locator('#earned-total').innerText(), '3');
   assert.equal(await http.page.locator('.counter-box input').inputValue(), '5');
   assert.match(await http.page.locator('.trophy-row[data-id="2"]').innerText(), /Just Like Paradise/);

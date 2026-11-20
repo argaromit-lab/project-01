@@ -1,0 +1,33 @@
+{
+  "format": "leonida-waypoint-captures/v1",
+  "screenshots": [
+    {
+      "name": "01-waypoint.jpg",
+      "height": 800,
+      "width": 1280,
+      "bytes": 112573,
+      "capture": "Edge · Playwright, unedited viewport screenshot"
+    },
+    {
+      "name": "02-roadmap.jpg",
+      "height": 800,
+      "width": 1280,
+      "bytes": 125155,
+      "capture": "Edge · Playwright, unedited viewport screenshot"
+    },
+    {
+      "name": "03-missable-watch.jpg",
+      "height": 800,
+      "width": 1280,
+      "bytes": 95120,
+      "capture": "Edge · Playwright, unedited viewport screenshot"
+    },
+    {
+      "name": "04-story-spoilers.jpg",
+      "height": 800,
+      "width": 1280,
+      "bytes": 89450,
+      "capture": "Edge · Playwright, unedited viewport screenshot"
+    }
+  ]
+}

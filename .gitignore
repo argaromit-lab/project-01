@@ -1,0 +1,7 @@
+.env
+.makefun-kit/
+out/
+node_modules/
+test-output/
+playwright-report/
+*.log

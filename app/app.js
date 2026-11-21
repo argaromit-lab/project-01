@@ -13,6 +13,7 @@
   const counts = { platinum: 1, gold: 2, silver: 6, bronze: 46 };
   let selectedId = 15;
   let pendingImport = null;
+  let importRead = 0;
   let storageWorks = true;
   let filters = { query: '', kind: 'all', grade: 'all', status: 'all' };
   let state = readSave();
@@ -143,6 +144,12 @@
     description.className = 'row-description';
     description.textContent = hidden ? 'Earn it or turn on story details to reveal.' : trophy.description;
     content.append(description);
+    if (trophy.missable && !hidden) {
+      const watch = document.createElement('span');
+      watch.className = 'row-watch';
+      watch.textContent = trophy.id === 28 ? 'Timing watch · Chapter 1' : 'Timing watch · Chapter 3';
+      content.append(watch);
+    }
 
     const meta = document.createElement('div');
     meta.className = 'row-meta';
@@ -162,11 +169,21 @@
 
   function renderList() {
     const filtered = data.trophies.filter(visible);
+    const focused = document.activeElement;
+    const focusedRow = focused?.closest('.trophy-row');
+    const focusId = focusedRow?.dataset.id;
+    const focusSelector = focused?.matches('input') ? 'input' : '.row-title';
+    if (!filtered.some((trophy) => trophy.id === selectedId)) selectedId = filtered[0]?.id ?? null;
     list.replaceChildren(...filtered.map(row));
     el('result-count').textContent = `${filtered.length} ${filtered.length === 1 ? 'trophy' : 'trophies'}`;
     el('empty-results').hidden = filtered.length !== 0;
-    if (!filtered.some((trophy) => trophy.id === selectedId) && filtered.length) selectedId = filtered[0].id;
     renderDetail();
+    detail.scrollTop = 0;
+    if (focusId) {
+      const nextFocus = list.querySelector(`[data-id="${focusId}"] ${focusSelector}`)
+        || list.querySelector('.row-title') || el('clear-filters');
+      nextFocus.focus({ preventScroll: true });
+    }
     updateProgress();
   }
 
@@ -189,9 +206,18 @@
   }
 
   function renderDetail() {
-    const trophy = byId.get(selectedId) || data.trophies[0];
-    const hidden = storyMasked(trophy);
     detail.replaceChildren();
+    detail.classList.remove('masked-detail');
+    const trophy = byId.get(selectedId);
+    if (!trophy) {
+      const heading = document.createElement('h2');
+      heading.textContent = 'Find your next trophy';
+      const message = document.createElement('p');
+      message.textContent = 'No trophies match the current search and filters. Clear them to return to the full checklist.';
+      detail.append(heading, message);
+      return;
+    }
+    const hidden = storyMasked(trophy);
     if (hidden) {
       detail.classList.add('masked-detail');
       const line = document.createElement('div');
@@ -248,8 +274,33 @@
       if (group) citationList.append(group);
     }
 
-    const content = [topline, heading, description, rule, guideTitle, guide];
-    if (trophy.confidence) {
+    const hasSteps = Array.isArray(trophy.steps) && trophy.steps.length > 0;
+    const content = [topline, heading, description, rule, guideTitle];
+    if (!hasSteps) content.push(guide);
+    if (trophy.id === 28) {
+      const check = document.createElement('section');
+      check.className = 'source-check';
+      check.setAttribute('aria-label', 'Source check: window and trophy requirement');
+      const facts = [
+        ['Confirmed window', 'The balcony session ends with Chapter 1.', 'pp-meditation', 'PowerPyx · meditation locations'],
+        ['Unconfirmed requirement', 'Missing it has not been shown to block this trophy.', 'ol-missables', 'Output Lag · missable check']
+      ];
+      for (const [title, text, sourceId, sourceLabel] of facts) {
+        const column = document.createElement('div');
+        const label = document.createElement('strong');
+        label.textContent = title;
+        const copy = document.createElement('p');
+        copy.textContent = text;
+        const link = document.createElement('a');
+        link.href = sourceById.get(sourceId).url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = sourceLabel;
+        column.append(label, copy, link);
+        check.append(column);
+      }
+      content.push(check);
+    } else if (trophy.confidence) {
       const confidence = document.createElement('p');
       confidence.className = 'confidence-note';
       const caution = document.createElement('strong');
@@ -317,11 +368,29 @@
         persist();
         renderDetail();
       });
-      counter.append(copy, input, clear);
-      content.push(counter);
+      const target = document.createElement('span');
+      target.className = 'counter-target';
+      target.textContent = `/ ${formatNumber(trophy.target)}`;
+      target.setAttribute('aria-hidden', 'true');
+      counter.append(copy, input, target, clear);
+      content.splice(3, 0, counter);
     }
 
-    if (!Array.isArray(trophy.steps) || !trophy.steps.length) content.push(citationList);
+    if (hasSteps) {
+      const overview = document.createElement('details');
+      overview.className = 'guide-overview';
+      const summary = document.createElement('summary');
+      summary.textContent = 'Guide overview and source scope';
+      overview.append(summary, guide);
+      if (trophy.confidence) {
+        const note = document.createElement('p');
+        note.className = 'guide-copy';
+        note.textContent = trophy.confidence;
+        overview.append(note);
+      }
+      overview.append(citationList);
+      content.push(overview);
+    } else content.push(citationList);
     const footer = document.createElement('div');
     footer.className = 'detail-footer';
     const earnedLabel = document.createElement('label');
@@ -382,6 +451,24 @@
       item.classList.toggle('is-selected', Number(item.dataset.id) === id);
     }
     renderDetail();
+    detail.scrollTop = 0;
+    if (window.matchMedia('(max-width: 720px)').matches) {
+      detail.focus({ preventScroll: true });
+      detail.scrollIntoView({ block: 'start' });
+    }
+  }
+
+  function openTrophy(id) {
+    setView('guide');
+    filters = { query: '', kind: 'all', grade: 'all', status: 'all' };
+    el('search-trophies').value = '';
+    el('kind-filter').value = 'all';
+    el('grade-filter').value = 'all';
+    el('status-filter').value = 'all';
+    selectedId = id;
+    renderList();
+    list.querySelector(`[data-id="${id}"]`)?.scrollIntoView({ block: 'nearest' });
+    select(id);
   }
 
   function renderRoadmap() {
@@ -393,9 +480,24 @@
       { title: 'Use the checklist, then the sweep', label: 'After the story', text: 'The 100% checklist appears after the story under Progress > Stats > 100% Completion; earlier work still counts. Finish only its missing lines, then return to any trophy-specific requirement left.', ids: [14, 15, 17, 30, 32, 40, 54] },
       { title: 'Check the counter, claim the platinum', label: 'Final pass', text: 'Compare this browser checklist with the PS5 trophy screen, correct any uncertain manual notes, and earn each remaining trophy. The platinum is the final entry once every other trophy is earned.', ids: [1] }
     ];
+    // Each trophy has one planning stage; opening its guide supplies its own unlock conditions.
+    const stageIds = [
+      [28],
+      [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+      [15, 16, 17, 18, 19, 20, 21, 25, 30, 31, 32, 33, 34, 35, 36, 42, 47, 48, 51, 52, 53, 55],
+      [22, 23, 24, 26, 27, 29, 37, 38, 39, 40, 41, 43, 44, 45, 46, 49, 50],
+      [14, 54],
+      [1]
+    ];
+    const stageSources = [
+      ['pp-meditation', 'ol-missables'], ['pp-guide', 'ol-missables'],
+      ['pp-100', 'ol-missables'], ['pp-guide', 'pp-strangers', 'ol-guide'],
+      ['pp-100', 'pp-garages'], ['pp-guide']
+    ];
     const flow = el('roadmap-flow');
     flow.replaceChildren();
     for (const [index, stage] of stages.entries()) {
+      stage.ids = stageIds[index];
       const section = document.createElement('section');
       section.className = 'roadmap-stop';
       const number = document.createElement('span');
@@ -408,29 +510,45 @@
       const label = document.createElement('span');
       label.className = 'roadmap-status';
       label.textContent = stage.label;
+      const citations = document.createElement('div');
+      citations.className = 'roadmap-sources';
+      for (const sourceId of stageSources[index]) {
+        const source = sourceById.get(sourceId);
+        const anchor = document.createElement('a');
+        anchor.href = source.url;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+        anchor.textContent = source.title;
+        citations.append(anchor);
+      }
+      const browse = document.createElement('details');
+      browse.className = 'roadmap-browse';
+      const summary = document.createElement('summary');
+      const earned = stage.ids.filter((id) => isEarned(byId.get(id))).length;
+      summary.textContent = `${earned}/${stage.ids.length} earned · Browse trophies`;
       const chips = document.createElement('div');
       chips.className = 'roadmap-trophies';
+      let masked = 0;
       for (const id of stage.ids) {
         const trophy = byId.get(id);
-        if (!trophy || storyMasked(trophy)) continue;
+        if (storyMasked(trophy)) { masked++; continue; }
         const chip = document.createElement('button');
         chip.type = 'button';
         chip.className = 'roadmap-chip';
-        chip.textContent = trophy.name;
+        chip.textContent = `${isEarned(trophy) ? 'Earned · ' : ''}${trophy.name}`;
+        chip.dataset.trophyId = String(id);
         chip.addEventListener('click', () => {
-          setView('guide');
-          filters = { query: '', kind: 'all', grade: 'all', status: 'all' };
-          el('search-trophies').value = '';
-          el('kind-filter').value = 'all';
-          el('grade-filter').value = 'all';
-          el('status-filter').value = 'all';
-          select(trophy.id);
-          renderList();
-          window.scrollTo({ top: document.getElementById('main').offsetTop, behavior: 'smooth' });
+          openTrophy(trophy.id);
         });
         chips.append(chip);
       }
-      section.append(number, heading, copy, label, chips);
+      if (masked) {
+        const message = document.createElement('p');
+        message.textContent = `${masked} story ${masked === 1 ? 'trophy stays' : 'trophies stay'} hidden until earned or revealed.`;
+        chips.append(message);
+      }
+      browse.append(summary, chips);
+      section.append(number, heading, copy, label, citations, browse);
       flow.append(section);
     }
   }
@@ -528,6 +646,7 @@
   }
 
   function showImport() {
+    importRead++;
     pendingImport = null;
     el('import-file').value = '';
     el('apply-import').disabled = true;
@@ -543,6 +662,7 @@
   }
 
   async function prepareImport(file) {
+    const read = ++importRead;
     pendingImport = null;
     el('apply-import').disabled = true;
     if (!file) {
@@ -554,13 +674,16 @@
       return;
     }
     try {
-      const parsed = JSON.parse(await file.text());
+      const text = await file.text();
+      if (read !== importRead || !el('import-dialog').open) return;
+      const parsed = JSON.parse(text);
       pendingImport = readImport(parsed);
       const count = pendingImport.earned.length;
       const counters = Object.keys(pendingImport.counters).length;
       setImportFeedback(`Ready: ${count} earned ${count === 1 ? 'trophy' : 'trophies'} and ${counters} manual ${counters === 1 ? 'counter' : 'counters'}. Choose Merge or Replace, then apply.`, 'good');
       el('apply-import').disabled = false;
     } catch (error) {
+      if (read !== importRead || !el('import-dialog').open) return;
       pendingImport = null;
       setImportFeedback(error instanceof SyntaxError ? 'This file is not valid JSON. Nothing was changed.' : error.message, 'error');
     }
@@ -591,6 +714,9 @@
       setView(button.dataset.view);
       if (button.dataset.view === 'guide') el('search-trophies').focus();
     });
+  });
+  document.querySelectorAll('[data-open-trophy]').forEach((button) => {
+    button.addEventListener('click', () => openTrophy(Number(button.dataset.openTrophy)));
   });
   el('search-trophies').addEventListener('input', (event) => {
     filters.query = event.target.value;

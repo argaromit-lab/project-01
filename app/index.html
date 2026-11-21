@@ -30,7 +30,7 @@
   <main id="main">
     <section class="overview" aria-labelledby="page-title">
       <div class="overview-title">
-        <h1 id="page-title">Your road to the platinum</h1>
+        <h1 id="page-title">GTA VI trophy guide</h1>
         <p>55 PS5 trophies <span class="separator" aria-hidden="true">/</span> solo list <span class="separator" aria-hidden="true">/</span> works offline</p>
       </div>
       <div class="progress-summary">
@@ -46,6 +46,12 @@
     </section>
 
     <section class="view-panel" id="guide-view" aria-label="Trophy checklist and guide">
+      <aside class="timing-watch" aria-label="Chapter timing precautions">
+        <strong>Before you move on</strong>
+        <button type="button" data-open-trophy="28"><b>Chapter 1</b><span>Lucia’s balcony meditation</span></button>
+        <button type="button" data-open-trophy="25"><b>Chapter 3</b><span>Yago’s hourglass race</span></button>
+        <p>Timed windows reported.<br>Trophy dependencies unconfirmed.</p>
+      </aside>
       <div class="finder-bar">
         <label class="search-control" for="search-trophies"><span class="search-symbol" aria-hidden="true"></span><span class="visually-hidden">Search visible trophies</span><input id="search-trophies" type="search" placeholder="Find a trophy" autocomplete="off"></label>
         <label class="filter-control"><span>Kind</span><select id="kind-filter"><option value="all">All kinds</option><option value="story">Story</option><option value="missable">Missable</option><option value="collectibles">Collectibles</option><option value="activities">Activities</option><option value="online">Online</option></select></label>
@@ -64,7 +70,7 @@
           </div>
           <p class="list-footnote"><span class="hidden-mark" aria-hidden="true">H</span>Hidden on PlayStation until earned <span class="footnote-divider">·</span> separate from story spoiler protection</p>
         </section>
-        <article class="detail-pane" id="trophy-detail" aria-live="polite" aria-atomic="true"></article>
+        <article class="detail-pane" id="trophy-detail" tabindex="-1" aria-live="polite" aria-atomic="true"></article>
       </div>
     </section>
 

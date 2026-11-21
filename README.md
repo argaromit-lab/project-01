@@ -10,6 +10,10 @@ Open `app/index.html`. Search and filter the list, select a trophy to read its g
 
 Use **Export** to save a progress file. To restore it, choose a file, select **Merge** (combine earned trophies and keep the higher counter values) or **Replace** (overwrite this browser's tracker), then apply. Import validates the game, format, trophy names and counters before changing anything.
 
+The chapter timing strip opens either precaution directly. Checklist rows flag both timing watches, and the meditation guide separates the confirmed availability window from the unconfirmed trophy dependency with links to each source. Manual counters show their targets beside the input. On phones, selecting a trophy moves focus to its guide.
+
+The six-stage roadmap assigns all 55 trophies once, shows earned totals per stage, and links the supporting guides beside the advice. Expand **Browse trophies** to open a guide; unearned story names follow the spoiler setting. A stage is a planning group: each trophy's guide supplies its individual unlock conditions.
+
 ## Run and verify
 
 ```sh
@@ -17,6 +21,8 @@ node main.ts
 ```
 
 The publisher copies `app/` and `screenshots/` to `/output`; set `MAKEFUN_OUTPUT_DIR` to choose another folder. `node generate-data.mjs --check` confirms the browser's compact, file-open-compatible data script matches the canonical JSON. `node validate.mjs` checks list facts, citations, local references and asset limits.
+
+`node capture.mjs` uses the local Playwright installation named in that script to verify file-open and static HTTP behavior and render the four submitted screenshots. It checks saved progress, merge/replace, invalid and racing file imports, spoiler masking, filter selection, keyboard/mobile focus and complete roadmap coverage.
 
 ## Sources and accuracy
 

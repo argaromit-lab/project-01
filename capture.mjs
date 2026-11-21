@@ -96,6 +96,8 @@ try {
   assert.match(await file.page.locator('.trophy-row[data-id="2"]').innerText(), /Story trophy hidden/);
   await file.page.locator('#search-trophies').fill('Gone Fishing');
   assert.equal(await file.page.locator('.trophy-row').count(), 0, 'masked story descriptions are excluded from search');
+  assert.match(await file.page.locator('#trophy-detail').innerText(), /No trophies match/, 'empty search clears the previous actionable guide');
+  assert.equal(await file.page.locator('#trophy-detail input').count(), 0, 'empty results cannot edit a stale trophy');
   await file.page.locator('#search-trophies').fill('');
   await file.page.locator('.spoiler-control').click();
   assert.match(await file.page.locator('.trophy-row[data-id="2"]').innerText(), /Just Like Paradise/);
@@ -106,7 +108,16 @@ try {
   await file.page.locator('#kind-filter').selectOption('all');
   await file.page.locator('#grade-filter').selectOption('gold');
   assert.equal(await file.page.locator('.trophy-row').count(), 2, 'grade filter');
+  assert.equal(await file.page.locator('.trophy-row.is-selected').count(), 1, 'filtered selection is visibly highlighted');
+  assert.match(await file.page.locator('.trophy-row.is-selected .grade-badge').innerText(), /gold/i);
   await file.page.locator('#grade-filter').selectOption('all');
+  assert.equal(await file.page.locator('.row-watch').count(), 2, 'both qualified timing risks are marked in the checklist');
+  await file.page.locator('[data-open-trophy="28"]').click();
+  assert.match(await file.page.locator('#trophy-detail h2').innerText(), /Positive Mental Attitude/);
+  await file.page.locator('.trophy-row[data-id="15"] input').focus();
+  await file.page.keyboard.press('Space');
+  assert.equal(await file.page.locator('.trophy-row[data-id="15"] input').evaluate(node => node === document.activeElement), true, 'keyboard focus survives ticking a trophy');
+  await file.page.keyboard.press('Space');
 
   // Exercise earned state and a manual counter through the same visible controls a player uses.
   await file.page.locator('.trophy-row[data-id="15"] input[type="checkbox"]').check();
@@ -170,6 +181,25 @@ try {
   assert.match(await restore.page.locator('#import-feedback').innerText(), /Unknown trophy/);
   assert.equal(await restore.page.locator('#apply-import').isDisabled(), true);
   assert.equal(await restore.page.evaluate(() => localStorage.getItem('leonida-waypoint-progress-v1')), stateBeforeBadFile, 'invalid import leaves saved state untouched');
+  await restore.page.keyboard.press('Escape');
+
+  // A slow earlier file must not overwrite a later selection in the same import dialog.
+  await restore.page.locator('#show-import').click();
+  await restore.page.evaluate(() => {
+    const original = File.prototype.text;
+    File.prototype.text = async function () {
+      const text = await original.call(this);
+      if (this.name === 'slow.json') await new Promise(resolve => setTimeout(resolve, 150));
+      return text;
+    };
+  });
+  await restore.page.locator('#import-file').setInputFiles({ name: 'slow.json', mimeType: 'application/json', buffer: exportBytes });
+  await restore.page.locator('#import-file').setInputFiles({ name: 'new-invalid.json', mimeType: 'application/json', buffer: Buffer.from('not JSON') });
+  await restore.page.waitForFunction(() => document.getElementById('import-feedback').textContent.includes('not valid JSON'));
+  await restore.page.evaluate(() => new Promise(resolve => setTimeout(resolve, 200)));
+  assert.equal(await restore.page.locator('#apply-import').isDisabled(), true, 'stale asynchronous read cannot enable an invalid newer import');
+  assert.equal(await restore.page.evaluate(() => localStorage.getItem('leonida-waypoint-progress-v1')), stateBeforeBadFile);
+  await restore.page.keyboard.press('Escape');
 
   // Static HTTP with every non-local request blocked, plus a real mobile reflow check.
   const http = await openPage(browser, `${origin}/?sample=1`, { width: 1280, height: 800 });
@@ -177,7 +207,10 @@ try {
   assert.equal(await http.page.locator('#earned-total').innerText(), '0', 'new HTTP origin starts clean');
   await http.page.setViewportSize({ width: 390, height: 844 });
   assert.ok(await http.page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), 'mobile has no horizontal overflow');
+  await http.page.locator('[data-open-trophy="28"]').click();
+  assert.equal(await http.page.locator('#trophy-detail').evaluate(node => node === document.activeElement), true, 'mobile selection moves focus to the chosen guide');
   await http.page.setViewportSize({ width: 1280, height: 800 });
+  await http.page.evaluate(() => window.scrollTo(0, 0));
 
   // Capture one coherent sample save made through actual checkbox controls, not injected state.
   await http.page.locator('.trophy-row[data-id="15"] input[type="checkbox"]').check();
@@ -188,8 +221,8 @@ try {
   await http.page.locator('.counter-box input').press('Tab');
   await http.page.locator('#trophy-detail').evaluate((node) => { node.scrollTop = 0; });
   await http.page.locator('.list-scroll').evaluate((node) => {
-    const row = node.querySelector('.trophy-row[data-id="20"]');
-    node.scrollTop = row ? row.offsetTop - 8 : 0;
+    const row = node.querySelector('.trophy-row[data-id="25"]');
+    node.scrollTop = row ? row.getBoundingClientRect().top - node.getBoundingClientRect().top + node.scrollTop : 0;
   });
   assert.equal(await http.page.locator('#earned-total').innerText(), '3');
   assert.equal(await http.page.locator('.counter-box input').inputValue(), '5');
@@ -201,12 +234,14 @@ try {
   await http.page.locator('[data-view="roadmap"]').click();
   assert.match(await http.page.locator('#roadmap-view').innerText(), /Chapter 1 ends/);
   assert.match(await http.page.locator('#roadmap-view').innerText(), /Chapter 3/);
+  assert.equal(await http.page.locator('.roadmap-stop').count(), 6);
+  assert.equal(await http.page.locator('.roadmap-sources').count(), 6, 'every roadmap stage has adjacent citations');
   images.push(await capture(http.page, '02-roadmap.jpg'));
 
   await http.page.locator('[data-view="guide"]').click();
   await http.page.locator('#kind-filter').selectOption('missable');
   await http.page.locator('.trophy-row[data-id="28"] .row-title').click();
-  assert.match(await http.page.locator('#trophy-detail').innerText(), /unresolved/);
+  assert.match(await http.page.locator('#trophy-detail').innerText(), /Unconfirmed requirement/);
   assert.equal(await http.page.locator('#spoiler-toggle').isChecked(), false, 'missable guard is readable without revealing story spoilers');
   images.push(await capture(http.page, '03-missable-watch.jpg'));
 
@@ -216,6 +251,10 @@ try {
   await http.page.locator('.trophy-row[data-id="2"] .row-title').click();
   assert.match(await http.page.locator('#trophy-detail').innerText(), /Gone Fishing/);
   images.push(await capture(http.page, '04-story-spoilers.jpg'));
+  await http.page.locator('[data-view="roadmap"]').click();
+  const routeIds = await http.page.locator('.roadmap-chip').evaluateAll(nodes => nodes.map(node => Number(node.dataset.trophyId)));
+  assert.equal(routeIds.length, 55, 'every trophy has a roadmap assignment when spoilers are revealed');
+  assert.equal(new Set(routeIds).size, 55, 'no duplicate roadmap assignments');
 
   assert.deepEqual([...externalRequests], [], 'page made no request outside its own files and loopback server');
   await file.context.close();

@@ -100,3 +100,48 @@ Final source credit type is 19px for leads and 17px for supporting features, res
 ### Transcript checkpoint
 
 The current CLI discovers both recorded OpenCode sessions, including this upgrade, without editing their store. Its bundle dry run reports that no session carries the actual system prompt; it also requires the explicit MCP declaration (no external MCP server was used). A complete new transcript bundle and its pre-submit check remain pending recovery of the authentic system-prompt setup. The prior build labelled AGENTS.md as its system prompt; that instruction file alone does not establish the actual harness prompt. Logs were not fabricated or rewritten to fill that gap. Local rendering and runtime verification are complete; this is a submission-preparation limitation.
+
+## Second local upgrade · screenshot-guided editorial hierarchy
+
+This is the current candidate; it supersedes the preceding artifact sizes and image hashes. Its anchor is local commit `da75807`, not a newly submitted entry. The user's design comparison prompted lighter paper/ink treatment, stronger emphasis on the three leads, simpler picture captions and more visible numeric context. The comparison was interpreted as qualitative feedback: the anchor's lead/support headlines were already different sizes (44/34px), and no stories were added merely to match a rival's count.
+
+Requirements and quota were rechecked before edits: standard transcript mode, `can_submit: true`. Top 1–3 were collected again before editing and refreshed at **2026-11-21T13:16:06.154Z**. Their development rates and intervals remain those in the first upgrade table: **99.2057%, 99.1696%, 99.1652%**, with overlapping intervals. Prior-day references remain separately dated and phase-labelled. The only official score for our submitted snapshot remains **98.2873% development/provisional**; neither local upgrade has a new official score.
+
+### Three focused passes, second cycle
+
+| Candidate | Measured change | PNG bytes | Geometry findings | Ministral feedback vs public #1 |
+| --- | --- | ---: | ---: | ---: |
+| H0 | Exact `da75807` anchor; lead/support headline ratio 1.294; lead row 404px | 840,793 | 0 | 88/100 |
+| H1 | Light masthead; lead headline 44→50px; lead row 404→444px; headline ratio 1.471 | 839,817 | 0 | 78/100 |
+| H2 | Supporting caption 29→32 SVGpx; shorter concrete event labels; market losses 41→48 SVGpx; remove three unnecessary filled quote boxes | 842,135 | 0 | 88/100 |
+| H3 | Fuse hierarchy/captions; lead prose 23→24px, source credits 19→21px; figure context 18→20px and numbers 40→42px | 846,548 | 0 | 88/100 |
+
+The measured headline distinction and caption sizes support the intended readability improvement; the model feedback does not prove a higher official score. H1's lower feedback is retained explicitly rather than treated as a jury gain. H2/H3 recover the anchor's 88-point feedback while improving the measured hierarchy and text sizes.
+
+Final authored / delivered / 300px-preview type: date **94 / 47 / 13.77px**; lead headlines **50 / 25 / 7.32px**; supporting headlines **34 / 17 / 4.98px**. The lighter masthead trades six percent of the previous date type size for larger leads. Brief prose remains **19 / 9.5 / 2.78px** and still needs the larger image. Both brief columns retain 19 lines. All 33 stories, seven regional counts, source URLs, factual qualifiers and ledger bytes remain unchanged; caption edits retain pledges, plans and the 21 November orbit date.
+
+The design fixer's larger figure-label line height initially exposed six number-glyph container violations. The build rejected that render before replacing the deliverable. Final masthead height is154px and figures84px (82px inner figures), with sufficient number line height; all six violations are resolved. This is one hardening correction within H3.
+
+### Current verification
+
+- Final PNG: **1024×1024**, **846,548 bytes**, SHA-256 `13fe3a837fa7cd9192478da686c7508bb2793d0c3d386b50e754ef349aaf4f59`; below both the internal 900,000-byte budget and official 1 MiB limit.
+- Two independent Chromium contexts produce byte-identical masters and entries; geometry has zero findings across 78 text blocks, all HTML text runs, SVG label boundaries/pairs, duplicate IDs and report sequence.
+- Ledger hashes remain those recorded in the first upgrade. The adversarial harness again detects long unbroken labels, duplicate SVG IDs and a missing report. No page errors; map-number spacing and all 33 reports remain valid.
+- PNG CRCs, complete inflated scanlines, terminal chunk and two native runtime executions pass. Two fresh offline Linux Node22.23.4 containers, 1CPU/512MB/64PIDs/read-only bot, reproduce the final hash. Local Docker-inclusive wall times are649ms and452ms, not server runtimes.
+- Final successful vision review: **88/100**, `ministral-14b-2512`. Groq/Qwen, Mistral medium and the separately selected Mistral small returned HTTP429; Gemini Flash Lite returned503, and a different Gemini Flash attempt timed out before another503. **A second successful model audit is unavailable in this cycle.** No second score is invented; the 92-point decisive-improvement threshold has not been reached.
+- Screenshot inputs are retained locally under ignored `opencode-images/`; the user-provided screenshot is not part of the deliverable.
+
+### Deterministic design check, second cycle
+
+**Verdict: SLOP (severity 2) → clean after fixes.** Final template and rendered output both pass at severity0, with zero gating findings and zero external stylesheets. Template advisory count3; rendered advisory count54.
+
+| Guard | Hits | Action | Why it matters |
+| --- | ---: | --- | --- |
+| `redundant-border` | 1 | Applied the fixer's border removal to the paper masthead | Removes redundant filled-surface framing |
+| `tight-line-height` | 1 | Applied its 1.4 line height, then allocated sufficient figure height and checked glyph bounds | Keeps figure labels and numbers within their containers |
+| `row-kicker-eyebrow` | 13 advisory, rendered | Retained geographic and factual picture labels | Labels identify the news rather than decorate an app list |
+| `multiline-row-meta` | 2 advisory | Retained complete reporting | Full sentences need more than one line |
+| `overstuffed-row` | 38 advisory, rendered | Inspected rendered cards and SVG bounds; retained | Static slot counting includes authored illustration objects |
+| `cream-default-wash` | 1 advisory | Retained the user-directed paper/ink treatment | The editorial palette is deliberate |
+
+Round2 evidence is in ignored `.makefun-kit/round2-*`; baseline and every pass have separate source snapshots, images and native/300px sheets under `G:/kits/news-image-20261120-samples/round2-*`. The earlier transcript-system-prompt blocker remains unresolved; no complete new pre-submit bundle check is claimed.

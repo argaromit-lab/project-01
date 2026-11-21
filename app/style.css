@@ -76,6 +76,12 @@ main { max-width: var(--page-max); margin: 0 auto; padding: 0 clamp(16px, 2.7vw,
 .progress-readout span { color: var(--muted); font-size: 12px; }
 .progress-track { height: 6px; border-radius: 5px; background: #dce7df; overflow: hidden; }
 .progress-track span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--turquoise); transition: width 180ms ease-out; }
+.next-up-action { min-width: 0; display: flex; align-items: baseline; gap: 7px; border: 0; border-top: 1px solid var(--line); padding: 6px 0 0; background: transparent; color: var(--turquoise); text-align: left; cursor: pointer; }
+.next-up-action span { flex: 0 0 auto; color: var(--muted); font-size: 10px; }
+.next-up-action strong { min-width: 0; overflow: hidden; color: var(--petrol); font-size: 11px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.next-up-action:hover strong { color: var(--turquoise); text-decoration: underline; text-underline-offset: 2px; }
+.next-up-action:disabled { color: var(--muted); cursor: default; }
+.next-up-action:disabled strong { color: var(--muted); }
 .medal-tally { display: flex; justify-content: flex-end; gap: clamp(12px, 2vw, 27px); }
 .medal-count { display: grid; grid-template-columns: 10px auto; column-gap: 5px; align-items: baseline; color: var(--ink); }
 .medal-count i { width: 8px; height: 8px; border: 1px solid currentColor; border-radius: 50%; grid-row: 1 / span 2; align-self: center; }

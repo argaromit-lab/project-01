@@ -91,6 +91,13 @@ try {
   const file = await openPage(browser, appFile, { width: 1280, height: 800 });
   assert.equal(await file.page.title(), 'Leonida Waypoint | GTA VI trophy guide');
   assert.equal(await file.page.locator('.trophy-row').count(), 55);
+  assert.equal(await file.page.locator('#next-up-name').innerText(), 'Positive Mental Attitude', 'next-up follows the first open roadmap precaution');
+  await file.page.locator('#next-up-action').click();
+  assert.equal(await file.page.locator('#trophy-detail h2').innerText(), 'Positive Mental Attitude', 'next-up opens the suggested guide');
+  await file.page.locator('.trophy-row[data-id="28"] input').check();
+  assert.equal(await file.page.locator('#next-up-name').innerText(), 'Story trophy hidden', 'next-up advances without exposing an unearned story title');
+  await file.page.locator('#next-up-action').click();
+  assert.equal(await file.page.locator('#trophy-detail h2').innerText(), 'Story trophy hidden', 'opening a masked next-up keeps story detail concealed');
   const trophyData = JSON.parse(readFileSync(join(root, 'app/data/trophies.json'), 'utf8'));
   for (const trophy of trophyData.trophies) {
     assert.equal(

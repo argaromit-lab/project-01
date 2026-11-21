@@ -11,6 +11,15 @@
   const list = el('trophy-list');
   const detail = el('trophy-detail');
   const counts = { platinum: 1, gold: 2, silver: 6, bronze: 46 };
+  const roadmapStages = [
+    [28],
+    [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    [15, 16, 17, 18, 19, 20, 21, 25, 30, 31, 32, 33, 34, 35, 36, 42, 47, 48, 51, 52, 53, 55],
+    [22, 23, 24, 26, 27, 29, 37, 38, 39, 40, 41, 43, 44, 45, 46, 49, 50],
+    [14, 54],
+    [1]
+  ];
+  const roadmapOrder = roadmapStages.flat();
   let selectedId = 15;
   let pendingImport = null;
   let importRead = 0;
@@ -450,6 +459,24 @@
       const out = el(`earned-${grade}`);
       if (out) out.textContent = `${have}/${total}`;
     }
+    updateNextUp();
+  }
+
+  function updateNextUp() {
+    const action = el('next-up-action');
+    const name = el('next-up-name');
+    const next = roadmapOrder.map((id) => byId.get(id)).find((trophy) => !isEarned(trophy));
+    if (!next) {
+      name.textContent = 'All trophies earned';
+      action.disabled = true;
+      action.setAttribute('aria-label', 'All trophies earned');
+      return;
+    }
+    const label = storyMasked(next) ? 'Story trophy hidden' : next.name;
+    name.textContent = label;
+    action.disabled = false;
+    action.setAttribute('aria-label', `Open next suggested trophy guide: ${label}`);
+    action.dataset.trophyId = String(next.id);
   }
 
   function select(id) {
@@ -488,14 +515,6 @@
       { title: 'Check the counter, claim the platinum', label: 'Final pass', text: 'Compare this browser checklist with the PS5 trophy screen, correct any uncertain manual notes, and earn each remaining trophy. The platinum is the final entry once every other trophy is earned.', ids: [1] }
     ];
     // Each trophy has one planning stage; opening its guide supplies its own unlock conditions.
-    const stageIds = [
-      [28],
-      [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-      [15, 16, 17, 18, 19, 20, 21, 25, 30, 31, 32, 33, 34, 35, 36, 42, 47, 48, 51, 52, 53, 55],
-      [22, 23, 24, 26, 27, 29, 37, 38, 39, 40, 41, 43, 44, 45, 46, 49, 50],
-      [14, 54],
-      [1]
-    ];
     const stageSources = [
       ['pp-meditation', 'ol-missables'], ['pp-guide', 'ol-missables'],
       ['pp-100', 'ol-missables'], ['pp-guide', 'pp-strangers', 'ol-guide'],
@@ -504,7 +523,7 @@
     const flow = el('roadmap-flow');
     flow.replaceChildren();
     for (const [index, stage] of stages.entries()) {
-      stage.ids = stageIds[index];
+      stage.ids = roadmapStages[index];
       const section = document.createElement('section');
       section.className = 'roadmap-stop';
       const number = document.createElement('span');
@@ -741,6 +760,7 @@
   document.querySelectorAll('[data-open-trophy]').forEach((button) => {
     button.addEventListener('click', () => openTrophy(Number(button.dataset.openTrophy)));
   });
+  el('next-up-action').addEventListener('click', () => openTrophy(Number(el('next-up-action').dataset.trophyId)));
   el('search-trophies').addEventListener('input', (event) => {
     filters.query = event.target.value;
     renderList();

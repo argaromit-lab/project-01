@@ -5,7 +5,7 @@
       "name": "01-waypoint.jpg",
       "height": 800,
       "width": 1280,
-      "bytes": 129475,
+      "bytes": 130928,
       "capture": "Edge · Playwright, unedited viewport screenshot"
     },
     {
@@ -19,14 +19,14 @@
       "name": "03-missable-watch.jpg",
       "height": 800,
       "width": 1280,
-      "bytes": 115184,
+      "bytes": 115719,
       "capture": "Edge · Playwright, unedited viewport screenshot"
     },
     {
       "name": "04-story-spoilers.jpg",
       "height": 800,
       "width": 1280,
-      "bytes": 104347,
+      "bytes": 105898,
       "capture": "Edge · Playwright, unedited viewport screenshot"
     }
   ]

@@ -153,15 +153,22 @@
 
     const meta = document.createElement('div');
     meta.className = 'row-meta';
-    meta.append(gradeBadge(trophy.grade));
+    const marks = document.createElement('span');
+    marks.className = 'row-marks';
+    marks.append(gradeBadge(trophy.grade));
     if (trophy.hidden) {
       const mark = document.createElement('span');
       mark.className = 'hidden-mark';
       mark.textContent = 'H';
       mark.title = 'PlayStation hides this trophy until earned';
       mark.setAttribute('aria-label', 'Hidden on PlayStation until earned');
-      meta.append(mark);
+      marks.append(mark);
     }
+    const sourceCount = document.createElement('span');
+    sourceCount.className = 'row-source-count';
+    sourceCount.textContent = `${trophy.citations.length} ${trophy.citations.length === 1 ? 'source' : 'sources'}`;
+    sourceCount.setAttribute('aria-label', `${trophy.citations.length} cited ${trophy.citations.length === 1 ? 'source' : 'sources'}`);
+    meta.append(marks, sourceCount);
     item.append(earnedLabel, content, meta);
     item.addEventListener('click', () => select(trophy.id));
     return item;
@@ -571,6 +578,22 @@
       const about = document.createElement('p');
       about.textContent = source.about;
       content.append(anchor, about);
+      const linkedTrophies = data.trophies.filter((trophy) => trophy.citations.some((citation) => citation.source === source.id));
+      const coverage = document.createElement('details');
+      coverage.className = 'source-coverage';
+      const summary = document.createElement('summary');
+      summary.textContent = `Cited by ${linkedTrophies.length} ${linkedTrophies.length === 1 ? 'trophy guide' : 'trophy guides'}`;
+      const links = document.createElement('div');
+      links.className = 'source-trophies';
+      for (const trophy of linkedTrophies) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = trophy.name;
+        button.addEventListener('click', () => openTrophy(trophy.id));
+        links.append(button);
+      }
+      coverage.append(summary, links);
+      content.append(coverage);
       item.append(number, content);
       ledger.append(item);
     });

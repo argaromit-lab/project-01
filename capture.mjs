@@ -91,6 +91,14 @@ try {
   const file = await openPage(browser, appFile, { width: 1280, height: 800 });
   assert.equal(await file.page.title(), 'Leonida Waypoint | GTA VI trophy guide');
   assert.equal(await file.page.locator('.trophy-row').count(), 55);
+  const trophyData = JSON.parse(readFileSync(join(root, 'app/data/trophies.json'), 'utf8'));
+  for (const trophy of trophyData.trophies) {
+    assert.equal(
+      await file.page.locator(`.trophy-row[data-id="${trophy.id}"] .row-source-count`).innerText(),
+      `${trophy.citations.length} ${trophy.citations.length === 1 ? 'source' : 'sources'}`,
+      `visible citation count for ${trophy.name}`
+    );
+  }
   assert.match(await file.page.locator('.trophy-row[data-id="28"]').innerText(), /Positive Mental Attitude/);
   assert.doesNotMatch(await file.page.locator('.trophy-row[data-id="28"]').innerText(), /\bH\b/);
   assert.match(await file.page.locator('.trophy-row[data-id="2"]').innerText(), /Story trophy hidden/);
@@ -112,6 +120,15 @@ try {
   assert.match(await file.page.locator('.trophy-row.is-selected .grade-badge').innerText(), /gold/i);
   await file.page.locator('#grade-filter').selectOption('all');
   assert.equal(await file.page.locator('.row-watch').count(), 2, 'both qualified timing risks are marked in the checklist');
+  await file.page.locator('[data-view="sources"]').click();
+  const guideSource = file.page.locator('.source-entry').nth(1);
+  const citedCount = Number((await guideSource.locator('.source-coverage summary').innerText()).match(/\d+/)[0]);
+  await guideSource.locator('.source-coverage summary').click();
+  assert.equal(await guideSource.locator('.source-trophies button').count(), citedCount, 'source coverage lists exactly its cited trophy guides');
+  const linkedTrophy = await guideSource.locator('.source-trophies button').first().innerText();
+  await guideSource.locator('.source-trophies button').first().click();
+  assert.equal(await file.page.locator('#guide-view').isVisible(), true, 'source coverage returns to the guide view');
+  assert.equal(await file.page.locator('#trophy-detail h2').innerText(), linkedTrophy, 'source coverage opens its linked trophy guide');
   await file.page.locator('[data-open-trophy="28"]').click();
   assert.match(await file.page.locator('#trophy-detail h2').innerText(), /Positive Mental Attitude/);
   await file.page.locator('.trophy-row[data-id="15"] input').focus();

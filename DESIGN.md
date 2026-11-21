@@ -34,6 +34,10 @@ Flat surfaces, small source credits and thin divisional rules carry the print gr
 
 The two financial scenes have coordinated caption ribbons: Asian stocks uses sage #b8d0be, crimson direction arrows #9b3945 and green ribbon #356b53; Japan CPI uses peach #edd0b6, blue panel #c9e0e1 and teal ribbon #377b87. The arrows express reported direction, without implying a time series or changing the stated annual CPI rate. Other scenes and layout are unchanged by this refinement.
 
+All eleven illustrations now carry separate uppercase subject headers: maroon #96303e, navy #174960 or bottle green #135346, with white bold type. Supporting header lettering is28.17px master/14.09px delivery; Kyiv30/15px, Akvan andCOP3132.21/16.10px. These are measured rendered sizes, not rawSVGfont values. Supporting scene content is recomposed into the remaining vertical space below46SVG-unit headers; the source group is vertically compressed to preserve scene width and all original labels, an explicit tradeoff against object proportions. Main serif headlines and card tracks stay unchanged.
+
+The map now extends to both sidebar edges (340px master width), with blue #527f99 ocean, warm #e5cfa0 land and white coastlines. Numbered pin radius24SVGunits, numeral34px; leaders preserve geographic anchors. Minimum circle-outline gap4.71SVGunits after label-offset adjustments. The map is an overview of all six inhabited continents; it is not a detailed geographic atlas.
+
 ## Verified finish and limits
 
 The current review has zero geometry findings; two browser contexts and two isolated Linux runtime executions reproduce the exactPNG. The preceding composition change reduced dark fields; the current refinement restores rich color in selected illustration blocks. Measured mean HSV saturation rises2.54×/2.74×/2.00× for COP31/WFP/Angola versus f4c62da. This measures color intensity, not visual quality or an official score. The layout template and all editorial data remain byte-identical. Independent model critiques remain below the92point tool threshold; publication success is unverified. Details and evidence paths are inAUDIT.md.

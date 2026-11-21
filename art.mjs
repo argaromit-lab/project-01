@@ -7,8 +7,11 @@ const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll
 const text=(x,y,s,size=26,color='#272720',more='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" font-family="Arial,sans-serif" font-weight="700" ${more}>${esc(s)}</text>`;
 const label=(s,fill='#14283b')=>rect(0,142,600,42,fill)+text(300,173,s,32,'#fff','text-anchor="middle"');
 const lightPalette={'#182c3c':'#e6d5b8','#e9f0ee':'#393e35','#ffaaa0':'#a73436','#244d52':'#c6d4b6','#f2d898':'#514b26','#f1ead3':'#364c3d','#214851':'#e4ce9f','#d5e6db':'#3b5145','#f5d390':'#94552e','#14283b':'#ddcbb0'};
+const stamps={kyiv:['KYIV','#96303e'],akvan:['CYCLONE AKVAN','#174960'],cop:['COP31 OVERTIME','#135346'],markets:['AI SELL-OFF','#96303e'],reset:['UK–EU RESET','#174960'],hunger:['WFP AID PLAN','#135346'],cricket:['PHILLIPS 118','#135346'],qatar:['QATAR PLEDGE','#96303e'],diamond:['ANGOLA STAKE','#174960'],cpi:['JAPAN CORE CPI','#96303e'],mercury:['MERCURY ORBIT','#174960']};
 const svg=(id,body,caption,height=184)=>{
-  return `<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(caption)}" viewBox="0 0 600 ${height}" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="${id}-air" x2="0" y2="1"><stop stop-color="#c8d9ce"/><stop offset="1" stop-color="#e8dabd"/></linearGradient><linearGradient id="${id}-sea" x2="0" y2="1"><stop stop-color="#bddbd7"/><stop offset="1" stop-color="#75b0b1"/></linearGradient></defs>${body}</svg>`;
+  const [title,color]=stamps[id],compact=height===164,header=id==='kyiv'?28:compact?46:60,font=id==='kyiv'?22:compact?42:56;
+  const canvasHeight=compact?height:height+header,scaleY=compact?(height-header)/height:1;
+  return `<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(caption)}" viewBox="0 0 600 ${canvasHeight}" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="${id}-air" x2="0" y2="1"><stop stop-color="#c8d9ce"/><stop offset="1" stop-color="#e8dabd"/></linearGradient><linearGradient id="${id}-sea" x2="0" y2="1"><stop stop-color="#bddbd7"/><stop offset="1" stop-color="#75b0b1"/></linearGradient></defs><g transform="translate(0 ${header}) scale(1 ${scaleY})">${body}</g><g data-banner="${id}">${rect(0,0,600,header,color)}${text(300,header-8,title,font,'#fff','text-anchor="middle"')}</g></svg>`;
 };
 const stripLabel=s=>rect(0,130,600,34,'#e4d5bb')+text(300,156,s,32,'#343c30','text-anchor="middle"');
 const city=(base,color,seed=0)=>Array.from({length:19},(_,i)=>{const x=i*35-12,h=22+(i*47+seed)%79;return rect(x,base-h,27,h,color)+Array.from({length:3},(_,j)=>rect(x+5,base-h+10+j*17,5,5,'#a5bec3','opacity=".6"')).join('');}).join('');
@@ -96,19 +99,19 @@ export function worldMap(stories,colors){
   ];
   const bounds={x:23,y:15,w:570,h:278};
   const xy=(lon,lat)=>({x:bounds.x+(Number(lon)+180)/360*bounds.w,y:bounds.y+(85-Number(lat))/170*bounds.h});
-  let content=rect(0,0,620,338,'#CFE0E8');
-  for(const lat of [-60,-30,0,30,60]){const p=xy(0,lat);content+=line(`M22 ${p.y}H594`,'#afc6d0',.8);}
-  content+=continents.map(points=>path(points.map(([lon,lat],i)=>{const p=xy(lon,lat);return `${i?'L':'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`;}).join('')+'Z','#D6C7B2','stroke="#a79a85" stroke-width="1.5"')).join('');
+  let content=rect(0,0,620,338,'#527f99');
+  for(const lat of [-60,-30,0,30,60]){const p=xy(0,lat);content+=line(`M22 ${p.y}H594`,'#7198ac',.8);}
+  content+=continents.map(points=>path(points.map(([lon,lat],i)=>{const p=xy(lon,lat);return `${i?'L':'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`;}).join('')+'Z','#e5cfa0','stroke="#f8eacb" stroke-width="1.5"')).join('');
   for(const s of stories.filter(s=>s.lon!==null)){
     const p=xy(s.lon,s.lat),feature=s.id<=11;
     if(!feature) content+=circle(p.x,p.y,4.5,colors[s.region],'stroke="#fff9ec" stroke-width="1"');
   }
   // Offshore numeric labels use leaders to exact event anchors; the Qatar pin marks the investing country.
-  const offsets={1:[-28,-27],2:[-16,18],3:[-26,0],4:[15,15],5:[-48,-39],7:[9,20],8:[-14,25],9:[-15,17],10:[28,-13]};
+  const offsets={1:[-28,-33],2:[-10,18],3:[-26,0],4:[15,15],5:[-48,-39],7:[9,20],8:[-14,25],9:[-15,17],10:[28,-13]};
   for(const s of stories.slice(0,11).filter(s=>s.lon!==null)){
     const p=xy(s.lon,s.lat),o=offsets[s.id]||[0,0],x=p.x+o[0],y=p.y+o[1];
-    content+=line(`M${p.x} ${p.y}L${x} ${y}`,'#6f6359',2)+circle(p.x,p.y,3,'#ad303c')+circle(x,y,22,'#ad303c','stroke="#fff9ed" stroke-width="2.5"')+text(x,y+10,String(s.id),30,'#fff','text-anchor="middle"');
+    content+=line(`M${p.x} ${p.y}L${x} ${y}`,'#f4e5c2',2)+circle(p.x,p.y,3,'#ad303c')+circle(x,y,24,'#ad303c','stroke="#fff9ed" stroke-width="2.5"')+text(x,y+11,String(s.id),34,'#fff','text-anchor="middle"');
   }
-  content+=text(28,321,'6 = GLOBAL AID   11 = MERCURY',15,'#334b40');
+  content+=text(28,321,'6 = GLOBAL AID   11 = MERCURY',15,'#fff4d4');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 338" role="img" aria-label="World map keyed to the eleven illustrated features">${content}</svg>`;
 }

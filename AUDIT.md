@@ -145,3 +145,50 @@ The design fixer's larger figure-label line height initially exposed six number-
 | `cream-default-wash` | 1 advisory | Retained the user-directed paper/ink treatment | The editorial palette is deliberate |
 
 Round2 evidence is in ignored `.makefun-kit/round2-*`; baseline and every pass have separate source snapshots, images and native/300px sheets under `G:/kits/news-image-20261120-samples/round2-*`. The earlier transcript-system-prompt blocker remains unresolved; no complete new pre-submit bundle check is claimed.
+
+## Third cycle · replacement composition and light illustration system
+
+The current artifact supersedes all previous candidate hashes and dimensions of layout tracks. The anchor is local commit`8b7ee83`; the user's request explicitly authorized replacing the equal-card composition, blue-grey palette and dense digest. The design now has one large Kyiv feature left and two stacked horizontal leads right, a continuous warm-paper canvas, reauthored lead scenes and light supporting captions. SeeDESIGN.md for the final system.
+
+Current requirements were rechecked before source edits: standard transcript mode and`can_submit:true`. The kit was refreshed fromlevel33to34. Top1–3 were collected before editing and refreshed again at**2026-11-21T13:47:08.323Z**; development rates remain**99.2057%,99.1696%,99.1652%** with the previously documented overlapping90%intervals. Samples, public IDs, URLs, original dimensions and dated prior-day dev references remain outside the repository. No official new score is available; submittedc0e008a still has the documented98.2873%development/provisional rate.
+
+### Three focused passes
+
+| Candidate | Change and measurement | Bytes | Geometry | Critic vs public#1 |
+| --- | --- | ---: | ---: | ---: |
+| H0 | Exact8b7ee83 image; equal3lead columns,50/34px headline ratio1.471 | 846,548 | 0 | Prior cycle88/100, not a new call |
+| H1 | Replace grid with1000px Kyiv column and988px right column;60px Kyiv headline, warmer continuous surface, wider digest | 828,610 | 0 | Ministral68/100 |
+| H2 | Reauthor lead scenes for their new shapes; lighten market/WFP/diamond fields and map; replace repeated dark caption bars; other lead headlines48px | 822,468 | 0 | Ministral88/100 |
+| H3 | Retain validated composition/artwork; lower track548px, digest1.35line height and3.5px report gaps | 823,806 | 0 | Ministral88/100; Gemini78/100 |
+
+H1 initially exposed masthead bounds problems, corrected before accepting that candidate. An attempt to enlarge COP31 type in a narrower text column added a third line and overflowed the summary; it was rejected. The final horizontal scenes use360px and the enlarged text columns fit48px headlines on two lines. The criticisms are not official scores; the lowerH1feedback is recorded rather than called an improvement.
+
+### Before versus after
+
+| Property, master dimensions | Anchor8b7ee83 | Current candidate |
+| --- | ---: | ---: |
+| Kyiv headline | 50px | 60px |
+| Akvan/COP31headline | 50px | 48px, in stacked horizontal cards |
+| Supporting headline | 34px | 32px |
+| Kyiv/support headline ratio | 1.471 | 1.875 |
+| Other lead/support ratio | 1.471 | 1.5 |
+| Lead card structure | Three equal658/658/660px columns | One1000px spanning card, two988px horizontal cards |
+| Digest section height | 492px | 548px |
+| Digest font / line height | 19px /23.75px | 19.5px /26.325px |
+| Gap between reports | 0.5px | 3.5px |
+| Dark-pixel share, luminance below80/255 | 15.0726% | 4.7822% |
+
+Dark pixels fell**68.3%relatively**, under one fixedRGBweighted-luminance rule. This is a measurable shift in the requested surface treatment, not a proxy for judge quality. The wider digest has18and17lines per column instead of19/19; all22briefs remain, without dropping or shortening their factual copy. The geographical sidebar narrows430→340px, so its detailed labels still require full size. Date typography is86px instead of94px; the main date remains visible, but this tradeoff is explicit. At300px the Kyiv headline is8.79px, other leads7.03px and supporting headlines4.69px; full digest prose is not claimed readable at that scale.
+
+The three lead illustrations are authored anew for the new proportions, retaining river/city/attack context, landfall coordinates, climate deadlock and all factual qualifications. The pale map preserves its projection, report pins and numeric leaders. The spacecraft and orbit path are retained; its dark sky is a limited local contrast choice. All33reports and both editorial-ledger hashes remain identical to the earlier checkpoints.
+
+### Current verification and independent feedback
+
+- Final image:**1024×1024**,**823,806bytes**,SHA-256`3faf9894f2f37c440dce1f1435dc66e19a202cb8903ae86c7f40a40300d28c71`.
+- Two independent browser contexts produce byte-identical master and deliveryPNG. Geometry has**zero findings** across78text blocks,266text runs,SVGlabel bounds/pairs,duplicateIDs and33report sequence.
+- The focused adversarial harness detects unbroken text,duplicateSVGIDs and a missing report. Ledger identity, map-circle spacing, source sequence and finite image limits pass.
+- PNGchecksums, full scanline inflation and terminal chunk pass. Two native runs and two fresh offlineLinuxNode22.23.4runs reproduce the same hash, at1CPU/512MB/64PIDs/read-onlybot. Docker-inclusive local wall times619ms/455ms are not official server timing.
+- Final dual-model feedback:**88/100Ministral14B** and**78/100Gemini3.1FlashLite**. Both notice hierarchy/structure improvements but flag tiny digest/map detail. Suggestions to add an intraday line chart were not followed because no supported series is present. Gemini's suggestion to split the already two-column digest does not establish a layout defect. Neither score reaches the92threshold or proves beating#1.
+- Anti-slop:**PASS**,severity0,gating0,external stylesheets0. Template2advisories; rendered53advisories:row-kicker-eyebrow13,multiline-row-meta2,overstuffed-row38. Retained geographic/factual labels, full reporting and originalSVGobject structure after visual and bounds inspection. No deterministic fixes were required this cycle.
+
+The exact before/after images at1024px and300px are retained under`G:/kits/news-image-20261120-samples/round3-before-after-*`; Top1–3sheets and pass source snapshots use`round3-*`. Harness, pixel metric, two-model critiques andLinuxlogs are in ignored`.makefun-kit/round3-*`. The authentic-system-prompt transcript blocker from earlier checkpoints remains unresolved; no complete new bundle or official pre-submit check is claimed. This is a local design/runtime checkpoint.

@@ -41,7 +41,9 @@ At the 300 px preview, the date, main headline hierarchy and factual illustratio
 
 ## Local upgrade · 21 November
 
-The reviewed upgrade uses a light paper masthead and gives the three lead stories more space. Lead headlines are now 50 master pixels (25 pixels delivered), while supporting headlines are 34 (17 delivered). Lead illustrations fill their actual card proportions, supporting captions use shorter event labels, and market-loss figures, source credits and map numbers are larger. All 33 reports and the source ledger remain byte-identical to the submitted baseline. The current PNG is 846,548 bytes. The builder validates geometry before replacing the deliverable.
+The current edition replaces the equal-column lead grid with one large Kyiv feature and two stacked horizontal lead stories for Akvan and COP31. A continuous warm-paper surface and newly composed light illustrations replace the repeated dark-blue panels. Lead headlines are 60px/48px at master resolution versus 32px supporting headlines; the wider lower digest uses 19.5px text at 1.35 line height with 3.5px between reports. [Design notes](DESIGN.md) describe the current layout and palette.
+
+All 33 reports and the source ledger remain byte-identical to the submitted baseline. The current PNG is 823,806 bytes. The builder validates geometry before replacing the deliverable.
 
 Two independent browser contexts produce identical image bytes; two fresh offline Linux Node 22.23.4 containers reproduce that same PNG. The [audit](AUDIT.md) records the three measured passes and their limits. The candidate has no new official score: the submitted baseline's development rate is 98.2873%, while the sampled leader is 99.2057%. Local critics do not establish that the upgrade beats the leader.
 

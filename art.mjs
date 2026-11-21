@@ -4,27 +4,32 @@ const path=(d,fill,more='')=>`<path d="${d}" fill="${fill}" ${more}/>`;
 const circle=(x,y,r,fill,more='')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" ${more}/>`;
 const line=(d,color='#c7d3db',width=2,more='')=>path(d,'none',`stroke="${color}" stroke-width="${width}" ${more}`);
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
-const text=(x,y,s,size=26,color='#fff',more='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" font-family="Arial,sans-serif" font-weight="700" ${more}>${esc(s)}</text>`;
+const text=(x,y,s,size=26,color='#272720',more='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" font-family="Arial,sans-serif" font-weight="700" ${more}>${esc(s)}</text>`;
 const label=(s,fill='#14283b')=>rect(0,142,600,42,fill)+text(300,173,s,32,'#fff','text-anchor="middle"');
-const svg=(id,body,caption,height=184)=>`<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(caption)}" viewBox="0 0 600 ${height}" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="${id}-air" x2="0" y2="1"><stop stop-color="#749bb2"/><stop offset="1" stop-color="#d9d6c3"/></linearGradient><linearGradient id="${id}-sea" x2="0" y2="1"><stop stop-color="#49899c"/><stop offset="1" stop-color="#1a4d69"/></linearGradient></defs>${body}</svg>`;
-const stripLabel=s=>rect(0,130,600,34,'#14283b')+text(300,156,s,32,'#fff','text-anchor="middle"');
+const lightPalette={'#182c3c':'#e6d5b8','#e9f0ee':'#393e35','#ffaaa0':'#a73436','#244d52':'#c6d4b6','#f2d898':'#514b26','#f1ead3':'#364c3d','#214851':'#e4ce9f','#d5e6db':'#3b5145','#f5d390':'#94552e','#14283b':'#ddcbb0'};
+const svg=(id,body,caption,height=184)=>{
+  if(['markets','hunger','diamond'].includes(id))body=body.replace(/#[0-9a-fA-F]{6}/g,c=>lightPalette[c]||c);
+  return `<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(caption)}" viewBox="0 0 600 ${height}" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="${id}-air" x2="0" y2="1"><stop stop-color="#c8d9ce"/><stop offset="1" stop-color="#e8dabd"/></linearGradient><linearGradient id="${id}-sea" x2="0" y2="1"><stop stop-color="#bddbd7"/><stop offset="1" stop-color="#75b0b1"/></linearGradient></defs>${body}</svg>`;
+};
+const stripLabel=s=>rect(0,130,600,34,'#e4d5bb')+text(300,156,s,32,'#343c30','text-anchor="middle"');
 const city=(base,color,seed=0)=>Array.from({length:19},(_,i)=>{const x=i*35-12,h=22+(i*47+seed)%79;return rect(x,base-h,27,h,color)+Array.from({length:3},(_,j)=>rect(x+5,base-h+10+j*17,5,5,'#a5bec3','opacity=".6"')).join('');}).join('');
 function kyiv(){
-  const beams=Array.from({length:6},(_,i)=>line(`M${154+i*79} 0Q${88+i*78} 46 ${93+i*76} 112`,'#eda465',2.2)).join('');
-  const bridge=path('M0 113Q130 70 262 113Q399 66 600 110V124H0Z','#44576b')+line('M0 117H600','#c1c9c5',3)+[48,157,280,410,543].map(x=>rect(x,120,10,22,'#435c70')).join('');
-  const dome=rect(283,58,65,44,'#c6b786')+path('M278 58Q316 13 353 58Z','#c4a951')+line('M315 21V7M309 13H321','#e5ce89',2);
-  return svg('kyiv',rect(0,0,600,184,'#15283e')+city(113,'#273c53',19)+beams+dome+rect(0,124,600,18,'#2d667a')+bridge+circle(161,109,13,'#f2b763')+circle(161,109,6,'#fff4be')+rect(14,9,138,45,'#b82d43')+text(25,44,'KYIV',39)+text(23,79,'RUSSIAN ATTACK',22,'#f2c890')+label('8 DEAD ACROSS UKRAINE'),'Russian missile attack on Kyiv; eight deaths reported nationwide');
+  const beams=[0,1,2,3].map(i=>line(`M${300+i*86} 0Q${235+i*80} 25 ${230+i*78} 72`,'#a44937',2)).join('');
+  const buildings=city(86,'#b0b5a2',19);
+  const dome=rect(315,44,48,39,'#b8a56c')+path('M310 44Q339 4 368 44Z','#c6a34d')+line('M339 15V3M334 9H344','#8c793e',1.5);
+  const river=rect(0,86,600,40,'#91bab5')+line('M0 101H600','#d7e4ce',2);
+  const bridge=path('M0 83Q130 55 260 83Q425 50 600 83V92H0Z','#737e6d')+line('M0 86H600','#eadfbd',2)+[45,160,280,415,554].map(x=>rect(x,91,8,22,'#7e8d7b')).join('');
+  return svg('kyiv',rect(0,0,600,126,'#e8d8b9')+buildings+dome+beams+river+bridge+circle(232,78,8,'#b95a3f')+circle(232,78,4,'#f9dfa1')+rect(12,8,118,37,'#ad363c')+text(23,36,'KYIV',32,'#fff')+text(18,67,'RUSSIAN ATTACK',17,'#513a2f')+rect(279,97,309,26,'#ad363c')+text(433,117,'8 DEAD ACROSS UKRAINE',22,'#fff','text-anchor="middle"'),'Russian missile attack on Kyiv; eight deaths reported nationwide',126);
 }
 function cyclone(){
-  const coast=path('M0 0H245L237 19L218 31L218 47L192 63L193 81L165 102L144 142H0Z','#cfcca9')+path('M0 113L127 83L170 106L144 142H0Z','#96b39b');
-  const spiral=[0,60,120,180,240,300].map(a=>`<g transform="translate(337 74) rotate(${a}) scale(.85)">${line('M-12-8C-11-43 24-65 57-47C27-52 6-26 4-4','#edf5ee',7,'stroke-linecap="round"')}</g>`).join('');
-  const rain=Array.from({length:17},(_,i)=>line(`M${280+(i*37)%285} ${10+(i*43)%114}l-8 13`,'#9ec8d3',1.1)).join('');
-  return svg('akvan',rect(0,0,600,184,'url(#akvan-sea)')+rain+coast+spiral+circle(337,74,7,'#34758b')+circle(202,64,6,'#b82d43','stroke="#fff" stroke-width="2"')+line('M325 74L211 64','#f8c45f',3)+path('M215 57L204 63L215 71Z','#f8c45f')+text(21,36,'ODISHA',32,'#203e4a')+text(21,69,'Gopalpur',25,'#203e4a')+text(431,41,'AKVAN',37)+text(402,126,'BAY OF BENGAL',20,'#e6f0ed')+label('LANDFALL · 300,000+ EVACUATED'),'Cyclone Akvan crosses India near Gopalpur');
+  const coast=path('M0 0H263L252 40L219 70L226 103L198 132L201 162L169 193L150 228L123 270H0Z','#e8d7ae')+path('M0 184L102 158L171 200L123 270H0Z','#bbbd8b');
+  const spiral=[0,60,120,180,240,300].map(a=>`<g transform="translate(371 149) rotate(${a}) scale(1.35)">${line('M-12-8C-11-43 24-65 57-47C27-52 6-26 4-4','#fff6df',7,'stroke-linecap="round"')}</g>`).join('');
+  return svg('akvan',rect(0,0,600,326,'#9cc9c4')+coast+spiral+circle(371,149,10,'#3c8c8a')+circle(207,119,7,'#ad363c','stroke="#fff6df" stroke-width="3"')+line('M348 149L215 119','#ad363c',4)+path('M222 109L207 118L216 132Z','#ad363c')+text(22,47,'ODISHA',35)+text(22,84,'Gopalpur',26)+text(324,46,'AKVAN',42)+text(303,251,'BAY OF BENGAL',26,'#254e4b')+rect(0,273,600,53,'#ded7ad')+text(300,309,'LANDFALL · 300K+ EVACUATED',31,'#254e4b','text-anchor="middle"'),'Cyclone Akvan crosses India near Gopalpur',326);
 }
 function cop(){
-  const globe=circle(93,66,55,'#4598a0')+path('M50 41L77 23L92 34L109 30L121 51L102 62L107 80L87 101L75 75L58 72Z','#9ebf7c')+line('M38 66H148M93 11C67 42 67 91 93 121M93 11C119 42 119 91 93 121','#c1ded7',1.3);
-  const paper=rect(185,10,398,123,'#f3f2e5')+text(207,48,'COP31',40,'#203b45')+text(207,80,'FOSSIL FUELS',25,'#526265')+line('M204 69L548 84','#b82d43',4)+line('M207 99H358M207 115H325','#afb7a6',3)+rect(383,92,185,34,'#b82d43')+text(475,118,'NO DEAL',28,'#fff','text-anchor="middle"');
-  return svg('cop',rect(0,0,600,184,'#1c494b')+globe+paper+text(37,137,'ANTALYA',20,'#e2ecd7')+label('OVERTIME · TALKS CONTINUE'),'COP31 continues beyond its scheduled finish without a final deal');
+  const globe=circle(118,132,85,'#6caca2')+path('M52 99L93 65L116 82L143 75L161 108L132 125L140 153L108 185L89 145L63 141Z','#c3cf94')+line('M33 132H203M118 47C78 95 78 170 118 217M118 47C158 95 158 170 118 217','#dfebc9',2);
+  const paper=rect(246,36,333,213,'#f8edcf')+text(267,91,'COP31',49)+text(266,134,'FOSSIL FUELS',27,'#5a6451')+line('M262 123L550 141','#ad363c',4)+line('M268 163H553M268 179H433','#b4b69c',3)+rect(332,196,227,43,'#ad363c')+text(446,229,'NO DEAL',34,'#fff','text-anchor="middle"');
+  return svg('cop',rect(0,0,600,326,'#ced5b3')+globe+paper+text(41,252,'ANTALYA',27,'#3d5848')+rect(0,273,600,53,'#e2d6b7')+text(300,309,'OVERTIME · TALKS CONTINUE',31,'#3c4936','text-anchor="middle"'),'COP31 continues beyond its scheduled finish without a final deal',326);
 }
 function markets(){
   let board=rect(0,0,600,164,'#182c3c');
@@ -68,7 +73,7 @@ function mercury(){
   const stars=Array.from({length:31},(_,i)=>circle((i*73+19)%600,(i*47+13)%185,i%3===0?1.7:1,'#b2c2cf')).join('');
   const planet=circle(465,92,80,'#b9b5a4')+path('M465 12A80 80 0 0 1 465 172Q514 101 465 12Z','#898f87')+[[437,51,17],[476,111,21],[424,120,12],[488,54,10],[455,90,8]].map(([x,y,r])=>circle(x,y,r,'#8c958f','opacity=".65"')+circle(x-2,y-2,r*.7,'#afb2a1','opacity=".6"')).join('');
   const craft=`<g transform="translate(202 91) rotate(-12)">${rect(-120,-16,78,34,'#3f83ac','stroke="#9ec0ce" stroke-width="2"')}${rect(43,-16,78,34,'#3f83ac','stroke="#9ec0ce" stroke-width="2"')}${[-101,-82,-63,62,81,100].map(x=>line(`M${x} -15V18`,'#abd2dc',1)).join('')}${rect(-34,-30,67,61,'#d9bd75')}${path('M-34-30L-10-43L48-36L33-30Z','#eee0ac')}${circle(0,0,15,'#dce2da')}${circle(0,0,8,'#536c78')}${line('M0 31V54L31 65','#b8c5c8',2)}</g>`;
-  return svg('mercury',rect(0,0,600,164,'#172c43')+`<g transform="translate(0 -3) scale(1 .72)">${stars}</g>`+line('M46 112Q254 145 383 79','#879ba6',1.3,'stroke-dasharray="5 5"')+`<g transform="translate(134 -3) scale(.72)">${planet}</g><g transform="translate(15 -4) scale(.8)">${craft}</g>`+text(29,28,'BEPICOLOMBO',24)+stripLabel('21 NOV · ORBIT PLANNED'),'Friday preview of BepiColombo’s planned Saturday Mercury orbit insertion',164);
+  return svg('mercury',rect(0,0,600,164,'#172c43')+`<g transform="translate(0 -3) scale(1 .72)">${stars}</g>`+line('M46 112Q254 145 383 79','#879ba6',1.3,'stroke-dasharray="5 5"')+`<g transform="translate(134 -3) scale(.72)">${planet}</g><g transform="translate(15 -4) scale(.8)">${craft}</g>`+text(29,28,'BEPICOLOMBO',24,'#fff')+stripLabel('21 NOV · ORBIT PLANNED'),'Friday preview of BepiColombo’s planned Saturday Mercury orbit insertion',164);
 }
 export const scenes=[kyiv,cyclone,cop,markets,reset,hunger,cricket,qatar,diamonds,inflation,mercury];
 
@@ -89,9 +94,9 @@ export function worldMap(stories,colors){
   ];
   const bounds={x:23,y:15,w:570,h:278};
   const xy=(lon,lat)=>({x:bounds.x+(Number(lon)+180)/360*bounds.w,y:bounds.y+(85-Number(lat))/170*bounds.h});
-  let content=rect(0,0,620,338,'#152a3e');
-  for(const lat of [-60,-30,0,30,60]){const p=xy(0,lat);content+=line(`M22 ${p.y}H594`,'#3a4b5d',.6);}
-  content+=continents.map(points=>path(points.map(([lon,lat],i)=>{const p=xy(lon,lat);return `${i?'L':'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`;}).join('')+'Z','#e2dfba','stroke="#f4f4db" stroke-width="1"')).join('');
+  let content=rect(0,0,620,338,'#c1d9d0');
+  for(const lat of [-60,-30,0,30,60]){const p=xy(0,lat);content+=line(`M22 ${p.y}H594`,'#96b6ac',.6);}
+  content+=continents.map(points=>path(points.map(([lon,lat],i)=>{const p=xy(lon,lat);return `${i?'L':'M'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`;}).join('')+'Z','#efe0b8','stroke="#c2b88e" stroke-width="1"')).join('');
   for(const s of stories.filter(s=>s.lon!==null)){
     const p=xy(s.lon,s.lat),feature=s.id<=11;
     if(!feature) content+=circle(p.x,p.y,4,colors[s.region],'stroke="#f7f4de" stroke-width=".6"');
@@ -102,6 +107,6 @@ export function worldMap(stories,colors){
     const p=xy(s.lon,s.lat),o=offsets[s.id]||[0,0],x=p.x+o[0],y=p.y+o[1];
     content+=line(`M${p.x} ${p.y}L${x} ${y}`,'#e7e5d6',1)+circle(p.x,p.y,2.5,'#fff')+circle(x,y,18,colors[s.region],'stroke="#fff" stroke-width="1.7"')+text(x,y+9,String(s.id),26,'#fff','text-anchor="middle"');
   }
-  content+=text(28,321,'6 = GLOBAL AID   11 = MERCURY',15,'#d9e2df');
+  content+=text(28,321,'6 = GLOBAL AID   11 = MERCURY',15,'#334b40');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 338" role="img" aria-label="World map keyed to the eleven illustrated features">${content}</svg>`;
 }

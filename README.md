@@ -39,6 +39,12 @@ The date-check panel excludes the 19 November summit, ICJ Myanmar judgment, Anth
 
 At the 300 px preview, the date, main headline hierarchy and factual illustration labels carry the edition. Full brief sentences and detailed credits require the larger image. The build audit records authored, final and preview font sizes rather than claiming all small prose is thumbnail-legible.
 
+## Local upgrade · 21 November
+
+The reviewed upgrade enlarges supporting headlines from 31 to 34 master pixels (15.5 to 17 pixels in the delivered image), recomposes the three lead illustrations to fill their actual card proportions, increases illustration captions, and strengthens feature-source credits and map numbers. All 33 reports and the source ledger remain byte-identical to the submitted baseline. The current PNG is 840,793 bytes. The builder validates geometry before replacing the deliverable.
+
+Two independent browser contexts produce identical image bytes; two fresh offline Linux Node 22.23.4 containers reproduce that same PNG. The [audit](AUDIT.md) records the three measured passes and their limits. The candidate has no new official score: the submitted baseline's development rate is 98.2873%, while the sampled leader is 99.2057%. Local critics do not establish that the upgrade beats the leader.
+
 ## License
 
 MIT. The illustration source and program are original work for this entry.

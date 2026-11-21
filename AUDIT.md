@@ -1,4 +1,4 @@
-# Final review · 20 November news edition
+# Baseline review · 20 November news edition
 
 The entry contains 33 reports: Asia 6, Europe 6, Middle East 4, Americas 6, Africa 4, Oceania 3 and World/space 4. There are eleven original illustrations and twenty-two briefs. The source ledger records exact source links, dates and qualifications, including when only an indexed publisher headline was accessible.
 
@@ -55,3 +55,48 @@ The final template and rendered output have zero gating findings, severity 0 and
 ## Limits
 
 The date, lead headlines, illustrated figures and hierarchy carry the 300 px preview. Complete briefs and source credits require the larger image. Planned orbit insertion, pledges, monthly releases, the global-aid target and reported casualty counts retain their qualifications. A final win or paid placement depends on make.fun’s post-deadline judgment.
+
+## Local upgrade checkpoint · 21 November 2026
+
+This section supersedes the baseline artifact measurements above for the new local candidate. The submitted snapshot remains `c0e008af7f0aa4ba27c1aafef296103d91acb94a`. Its official **development/provisional** rate is **98.2873%**, with a 90% interval of **97.5996–98.9751%**. The upgrade has no official score.
+
+The level-33 kit and current requirements were checked before edits. The API lists ordinary transcript bundles, with no strict-recording requirement or recording IDs; no live recording is required. Account status allowed submissions. The previous day's final results were still withheld (`finalized_at: null`, `scores_visible: false`), so its separately dated development references were used as provisional design evidence.
+
+The refreshed 20 November development Top 1–3 at 2026-11-21T12:24:37.553Z were:
+
+| Rank | Rate | 90% interval | Original bytes |
+| --- | ---: | ---: | ---: |
+| 1 | 99.2057% | 98.9952–99.4163% | 466,875 |
+| 2 | 99.1696% | 98.9499–99.3894% | 300,055 |
+| 3 | 99.1652% | 98.9417–99.3887% | 742,756 |
+
+Their intervals overlap. Public house-game margins do not prove which layout choice caused a rate difference. Metadata, public submission IDs, original dimensions, UTC retrieval times, dated prior-day references and native/300px comparison sheets are retained outside the repository under `G:/kits/news-image-20261120-samples/`.
+
+### Three measured passes
+
+| Candidate | Change and measured result | Geometry | PNG bytes | Groq feedback vs public #1 |
+| --- | --- | ---: | ---: | ---: |
+| H0 | Exact submitted baseline; supporting title 31px, supporting illustration 126px | 0 findings | 799,913 | 58/100 |
+| H1 | Supporting title 34px (+9.7%); illustration 134px (+6.3%); both brief columns retain 19 lines | 0 findings | 813,879 | 58/100 |
+| H2 | Recompose lead SVGs from 600×240 to 600×184; useful illustration width grows from 505px to approximately 658px (+30.3%); supporting caption 25→29 SVG pixels | 0 findings | 838,202 | 58/100 |
+| H3 | Retain H1/H2, increase feature credit type/contrast, map numbers 21→26 SVG pixels; 9.96 SVG-unit minimum gap between numbered map circles | 0 findings | 840,793 | 58/100 |
+
+H3 initially enlarged brief credits too; one report then overlapped DATE CHECK. That size increase was rejected. Final brief credits retain their original size with stronger contrast, and the columns remain balanced at 19 lines each. The build now rejects geometry failures before replacing `entry.png`.
+
+Final source credit type is 19px for leads and 17px for supporting features, respectively 9.5px and 8.5px at delivery. Supporting headings are 34px authored / 17px delivered / 4.98px at 300px. The date is 100 / 50 / 14.65px. Briefs remain 19 / 9.5 / 2.78px: complete sentences require the larger image.
+
+`stories.mjs` SHA-256 remains `ea0f3dc8c6f434096243b25f686d19af2506bf2a590814e8cfa3b8580d8e94fe`; `SOURCES.md` remains `fdb62f7375ecd4d321c4d67cc9887fc34f110d886c198ce0121da7a56cb3a934`. No factual claims or report sequence changed.
+
+### Verification and interpretation
+
+- Candidate: **1024×1024**, **840,793 bytes**, SHA-256 `14898f4743f98a9a7df7f76d55805a1b6902f4e6a9a27f249d10db96e08507aa`.
+- Two independent Chromium contexts produce byte-identical masters and delivered images. The geometry audit covers 79 text blocks, text runs, SVG label bounds and overlaps, duplicate IDs, story sequence and all page/container bounds.
+- The focused harness checks ledger identity, actual SVG bounds/letterboxing, typography, brief line counts, map-pin spacing and page errors. Injected unbroken text, duplicate SVG IDs and a missing report are each detected.
+- PNG CRCs, full inflated scanlines, terminal chunk and two native executions pass. Two separate offline Node 22.23.4 Linux containers, each with 1 CPU, 512 MB, 64 PIDs and read-only `/bot`, produce the exact candidate hash. Their 734ms and 572ms wall times include Docker startup and are not official server runtimes.
+- Final dual-model feedback is **58/100** from Groq/Qwen and **88/100** from Mistral/Ministral. Both remain below the critic tool's 92-point threshold. These opinions do not establish a decisive improvement over public #1, an official grade or a win probability. Some critiques incorrectly describe fonts, regional colors or the static map; no factual content was changed to satisfy those statements.
+- Anti-slop: **PASS**, severity **0**, zero gating findings and zero external stylesheets. Template: 3 advisory hits; rendered image source: 55 advisory hits, the same genre-dependent rules recorded above. Their retention is an editorial decision, not evidence of clipped text.
+- Tests, adversarial harness, pass records and critique logs are retained in the ignored `.makefun-kit/upgrade-*` files. The official scorer is server-only; no official local grade is available.
+
+### Transcript checkpoint
+
+The current CLI discovers both recorded OpenCode sessions, including this upgrade, without editing their store. Its bundle dry run reports that no session carries the actual system prompt; it also requires the explicit MCP declaration (no external MCP server was used). A complete new transcript bundle and its pre-submit check remain pending recovery of the authentic system-prompt setup. The prior build labelled AGENTS.md as its system prompt; that instruction file alone does not establish the actual harness prompt. Logs were not fabricated or rewritten to fill that gap. Local rendering and runtime verification are complete; this is a submission-preparation limitation.

@@ -127,10 +127,10 @@ if(!outputs[0].master.equals(outputs[1].master)||!outputs[0].entry.equals(output
   throw new Error('Two independent renders differ; captures preserved for diagnosis');
 }
 if(outputs[0].entry.length>=900000)throw new Error('Image exceeds the internal 900,000-byte budget');
+if(audit.issues.length)throw new Error('Geometry assertions failed; see .makefun-kit/geometry.json');
 await fs.writeFile(path.join(root,'entry.png'),outputs[0].entry);
 await fs.writeFile(path.join(scratch,'master-2048.png'),outputs[0].master);
 await sharp(outputs[0].entry).resize({width:300}).png().toFile(path.join(scratch,'preview-300.png'));
 const result={stories:33,features:11,briefs:22,regions:regions.map(r=>({name:r.name,count:r.count})),bytes:outputs[0].entry.length,sha256:digest(outputs[0].entry),masterSha256:digest(outputs[0].master),browserContexts:2,identical:true,geometryIssues:audit.issues.length};
 await fs.writeFile(path.join(scratch,'build-audit.json'),JSON.stringify(result,null,2));
 console.log(JSON.stringify(result));
-if(audit.issues.length)throw new Error('Geometry assertions failed; see .makefun-kit/geometry.json');

@@ -16,18 +16,22 @@ Two supporting rows contain four stories each at280px row height. The lower sect
 | Primary ink | `#272720` |
 | Quiet paper panels | `#e8dfc9` |
 | Crimson event stamp | `#ad363c` |
-| Teal water / map | `#9cc9c4` / `#c1d9d0` |
-| Climate field | `#ced5b3` |
+| Cyclone water / map sea | `#63b6ba` / `#CFE0E8` |
+| Climate / aid fields | `#12836c` / `#158264` |
+| Diamond scene / night sky | `#287eb4` / `#102344` |
+| Map land / numbered pins | `#D6C7B2` / `#ad303c` |
 | Ochre illustration field | `#e8d7ae` |
 
 Georgia bold carries date and headlines; Arial carries data, location, summaries and source credits. Authored sizes: date86px; Kyiv headline60px; Akvan/COP3148px; supporting32px; digest19.5px at1.35 line height with3.5px inter-report gap. Delivered type is half those sizes. The Kyiv/support headline ratio is1.875; other lead/support ratio1.5. Digest body and source detail require the full image; no claim that complete prose is readable at300px.
 
 ## Artwork and surface
 
-Original vector scenes retain concrete geography and scientific objects. Kyiv uses a warm sky, sage skyline, turquoise river and restrained crimson toll stamp. Akvan uses a pale coast, teal sea, spiral and precise landfall marker. COP31 places the globe and negotiating paper on a light sage field. Supporting caption bars use warm paper with dark ink instead of repeated dark blue bars. Market figures remain reported index losses; no invented intraday path. Space retains a small dark field to distinguish Mercury and the spacecraft.
+Original vector scenes retain concrete geography and scientific objects. Kyiv uses a warm sky, sage skyline, turquoise river and restrained crimson toll stamp. Akvan uses a pale coast, saturated teal sea, spiral and precise landfall marker. COP31 places the bright blue globe and negotiating paper on emerald; WFP uses a rich green field with golden sacks, and Angola uses a blue field with cyan diamond facets. Supporting caption bars retain warm paper with dark ink. Market figures remain reported index losses; no invented intraday path. Space uses a midnight blue field and a heavier dashed orbit path to distinguish Mercury and the spacecraft.
+
+`RUSSIAN ATTACK` is22 SVGpx (previously17) on a dark green ribbon; `BAY OF BENGAL` is34 SVGpx (previously26) on a dark teal ribbon. Kyiv bridge/attack strokes and cyclone coast/spiral strokes are heavier. Map land is #D6C7B2 over #CFE0E8 sea; numbered pins are uniformly red,22 SVG-unit radius with30px white numerals. Their leader lines preserve exact geographic anchors. Small report dots retain regional colors.
 
 Flat surfaces, small source credits and thin divisional rules carry the print grammar. No rounded cards or decorative shadows. Illustrations are generated from authoredSVG; raster provenance is `art.mjs` + `render.html` + `stories.mjs`, rendered by `build.mjs` and downsampled withLanczos3. No competitor artwork is included.
 
 ## Verified finish and limits
 
-The current review has zero geometry findings; two browser contexts and two isolated Linux runtime executions reproduce the exactPNG. Measured dark pixels at a luminance threshold80/255 fell15.07%→4.78% versus8b7ee83. This measures the intended reduction in dark fields, not visual quality or an official score. Independent model critiques remain below the92point tool threshold; publication success is unverified. Details and evidence paths are inAUDIT.md.
+The current review has zero geometry findings; two browser contexts and two isolated Linux runtime executions reproduce the exactPNG. The preceding composition change reduced dark fields; the current refinement restores rich color in selected illustration blocks. Measured mean HSV saturation rises2.54×/2.74×/2.00× for COP31/WFP/Angola versus f4c62da. This measures color intensity, not visual quality or an official score. The layout template and all editorial data remain byte-identical. Independent model critiques remain below the92point tool threshold; publication success is unverified. Details and evidence paths are inAUDIT.md.

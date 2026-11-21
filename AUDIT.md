@@ -192,3 +192,45 @@ The three lead illustrations are authored anew for the new proportions, retainin
 - Anti-slop:**PASS**,severity0,gating0,external stylesheets0. Template2advisories; rendered53advisories:row-kicker-eyebrow13,multiline-row-meta2,overstuffed-row38. Retained geographic/factual labels, full reporting and originalSVGobject structure after visual and bounds inspection. No deterministic fixes were required this cycle.
 
 The exact before/after images at1024px and300px are retained under`G:/kits/news-image-20261120-samples/round3-before-after-*`; Top1–3sheets and pass source snapshots use`round3-*`. Harness, pixel metric, two-model critiques andLinuxlogs are in ignored`.makefun-kit/round3-*`. The authentic-system-prompt transcript blocker from earlier checkpoints remains unresolved; no complete new bundle or official pre-submit check is claimed. This is a local design/runtime checkpoint.
+
+## Fourth cycle · richer color, larger illustration labels and map pins
+
+Current candidate supersedes earlier image sizes/hashes. Anchor is `f4c62da`. The user approved the composition and serif type and requested only artwork refinement. `render.html`, `stories.mjs` and `SOURCES.md` retain identical bytes to that anchor. All 33 reports, dates, numerical facts, source credits and geometry tracks are preserved.
+
+Current requirements and quota were checked before edits: standard transcript bundles, `can_submit: true`. Public Top 1–3 refreshed before implementation and at **2026-11-21T14:38:22.508Z**: dev/provisional **99.2057%, 99.1696%, 99.1652%**, with their previously recorded overlapping intervals. Source URLs, IDs, dimensions and dated prior-day references remain external. The candidate has no new official score; the submitted c0e008a score remains 98.2873% development/provisional.
+
+### Three measured artwork passes
+
+| Candidate | Change | PNG bytes | Geometry | Feedback against public #1 |
+| --- | --- | ---: | ---: | --- |
+| H0 | Exact f4c62da baseline | 823,806 | 0 | Previous cycle 88/78, no new baseline call |
+| H1 | Emerald COP31 and WFP; saturated blue Angola; stronger object strokes and midnight BepiColombo | 826,795 | 0 | Ministral 78/100 |
+| H2 | Kyiv/Akvan label growth and dark ribbons; heavier bridge, coast and spiral strokes | 832,020 | 0 | Ministral 78/100 |
+| H3 | Warm map land, pale blue sea, larger red pins; fuse validated artwork | 833,503 | 0 | Final exact PNG: Ministral 78/100, Gemini 88/100 |
+
+Earlier H3 feedback before small map-leader refinements was 88/68. Both records are retained; they are not interchangeable or official grades. Repeated feedback varies, and no decisive gain over #1 is established. The three passes fulfill the requested measurable artwork changes while keeping the approved layout invariant.
+
+| Requested property | Before | Current / measured result |
+| --- | --- | --- |
+| COP31 field | Pale sage #ced5b3 | Emerald #12836c |
+| WFP field | Pale green #c6d4b6 | Rich green #158264 |
+| Angola field | Pale ochre #e4ce9f | Saturated blue #287eb4 |
+| BepiColombo sky | #172c43 | Midnight #102344; orbit stroke 1.3→2.4 |
+| RUSSIAN ATTACK | 17 SVGpx | 22 SVGpx, +29.4%, dark green ribbon |
+| BAY OF BENGAL | 26 SVGpx | 34 SVGpx, +30.8%, dark teal ribbon |
+| Map land / sea | #efe0b8 / #c1d9d0 | **#D6C7B2 / #CFE0E8** |
+| Numbered pin radius / numeral | 18 / 26 SVGpx | **22 / 30 SVGpx**, red #ad303c |
+
+Mean HSV saturation, measured over the same full scene rectangles in the delivered PNG, rises **0.2066→0.5252 (2.54×)** for COP31, **0.1942→0.5319 (2.74×)** for WFP, and **0.2505→0.5008 (2.00×)** for Angola. This metric measures color intensity, not aesthetic quality or an official score. Typography, spacing and prose rendering are byte-for-byte governed by the same template.
+
+The pin audit includes stroke widths. At first the larger circles' outlines touched at two pairs; the offshore Kyiv and Odisha label offsets were moved 3 and 5 SVG units respectively, leaving their leader anchors fixed. The final minimum gap between numbered-pin outlines is **2.7113 SVG units**. All nine geographic feature pins have radius22 and red fill; the two nongeographic features retain the global-aid/Mercury key. Tiny report dots retain regional colors.
+
+### Current validity and evidence
+
+- PNG **1024×1024**, **833,503 bytes**, SHA-256 `ea6b9cebeb128ef5ebbac8186d547147a507a38d16f1c940556a3eb5b39b709b`.
+- Two independent Chromium contexts produce identical master and delivery PNGs. Geometry findings **0**, covering 78 text blocks, 266 text runs, SVG label bounds/pairs, IDs and report sequence. Additional art audit checks exact layout hash, label growth of at least25%, pin styling, nonintersecting outlines and increased saturation for the three target scenes.
+- PNG CRC, full scanline inflation and terminal-chunk checks pass; two native executions and two fresh offline Linux Node22.23.4 containers reproduce the exact final hash. Limits:1CPU,512MB,64PIDs,read-only bot; local Docker-inclusive wall times737ms/491ms are not server timing.
+- Anti-slop **PASS**, severity0, gating0, external stylesheets0. Rendered advisory count53: row-kicker-eyebrow13, multiline-row-meta2, overstuffed-row38; these geographic labels/reporting/SVG compositions were retained after visual and geometry review. No deterministic fix required.
+- Inspected exact300px before/after sheet. Label and color improvements are visible; complete briefs still require the native image. Final two-model critiques remain below92; no official score or claimed win.
+
+Artifacts: `.makefun-kit/round4-*` (ignored) for harness, pass records, art metrics, critic logs and Linux evidence; `G:/kits/news-image-20261120-samples/round4-*` for baseline/pass source snapshots, native/300px sheets and before/after comparisons. The authentic-system-prompt transcript limitation remains unresolved; a complete new pre-submit bundle/check is not claimed. Candidate is local pending the later explicit submission boundary.

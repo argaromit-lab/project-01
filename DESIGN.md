@@ -32,6 +32,8 @@ Original vector scenes retain concrete geography and scientific objects. Kyiv us
 
 Flat surfaces, small source credits and thin divisional rules carry the print grammar. No rounded cards or decorative shadows. Illustrations are generated from authoredSVG; raster provenance is `art.mjs` + `render.html` + `stories.mjs`, rendered by `build.mjs` and downsampled withLanczos3. No competitor artwork is included.
 
+The two financial scenes have coordinated caption ribbons: Asian stocks uses sage #b8d0be, crimson direction arrows #9b3945 and green ribbon #356b53; Japan CPI uses peach #edd0b6, blue panel #c9e0e1 and teal ribbon #377b87. The arrows express reported direction, without implying a time series or changing the stated annual CPI rate. Other scenes and layout are unchanged by this refinement.
+
 ## Verified finish and limits
 
 The current review has zero geometry findings; two browser contexts and two isolated Linux runtime executions reproduce the exactPNG. The preceding composition change reduced dark fields; the current refinement restores rich color in selected illustration blocks. Measured mean HSV saturation rises2.54×/2.74×/2.00× for COP31/WFP/Angola versus f4c62da. This measures color intensity, not visual quality or an official score. The layout template and all editorial data remain byte-identical. Independent model critiques remain below the92point tool threshold; publication success is unverified. Details and evidence paths are inAUDIT.md.

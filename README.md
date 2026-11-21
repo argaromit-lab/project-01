@@ -45,7 +45,9 @@ The current edition replaces the equal-column lead grid with one large Kyiv feat
 
 The illustration refinement adds emerald COP31/WFP fields, a brighter blue Angola scene, stronger edge strokes and dark ribbons behind enlarged Kyiv/Akvan labels. The map uses warm brown-cream land, pale blue sea and larger red numbered pins. The layout template retains its exact reviewed bytes.
 
-All 33 reports and the source ledger remain byte-identical to the submitted baseline. The current PNG is 833,503 bytes. The builder validates geometry before replacing the deliverable.
+Asian stocks now uses a soft sage field, three downward direction markers and a green caption ribbon. Japan CPI uses a peach skyline, pale blue data panel, upward direction marker and teal caption ribbon; October and year-on-year qualifications remain explicit.
+
+All 33 reports and the source ledger remain byte-identical to the submitted baseline. The current PNG is 834,815 bytes. The builder validates geometry before replacing the deliverable.
 
 Two independent browser contexts produce identical image bytes; two fresh offline Linux Node 22.23.4 containers reproduce that same PNG. The [audit](AUDIT.md) records the three measured passes and their limits. The candidate has no new official score: the submitted baseline's development rate is 98.2873%, while the sampled leader is 99.2057%. Local critics do not establish that the upgrade beats the leader.
 

@@ -8,7 +8,6 @@ const text=(x,y,s,size=26,color='#272720',more='')=>`<text x="${x}" y="${y}" fon
 const label=(s,fill='#14283b')=>rect(0,142,600,42,fill)+text(300,173,s,32,'#fff','text-anchor="middle"');
 const lightPalette={'#182c3c':'#e6d5b8','#e9f0ee':'#393e35','#ffaaa0':'#a73436','#244d52':'#c6d4b6','#f2d898':'#514b26','#f1ead3':'#364c3d','#214851':'#e4ce9f','#d5e6db':'#3b5145','#f5d390':'#94552e','#14283b':'#ddcbb0'};
 const svg=(id,body,caption,height=184)=>{
-  if(id==='markets')body=body.replace(/#[0-9a-fA-F]{6}/g,c=>lightPalette[c]||c);
   return `<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(caption)}" viewBox="0 0 600 ${height}" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="${id}-air" x2="0" y2="1"><stop stop-color="#c8d9ce"/><stop offset="1" stop-color="#e8dabd"/></linearGradient><linearGradient id="${id}-sea" x2="0" y2="1"><stop stop-color="#bddbd7"/><stop offset="1" stop-color="#75b0b1"/></linearGradient></defs>${body}</svg>`;
 };
 const stripLabel=s=>rect(0,130,600,34,'#e4d5bb')+text(300,156,s,32,'#343c30','text-anchor="middle"');
@@ -32,11 +31,13 @@ function cop(){
   return svg('cop',rect(0,0,600,326,'#12836c')+globe+paper+text(41,252,'ANTALYA',27,'#fff1c7')+rect(0,273,600,53,'#135346')+text(300,309,'OVERTIME · TALKS CONTINUE',31,'#fff2d0','text-anchor="middle"'),'COP31 continues beyond its scheduled finish without a final deal',326);
 }
 function markets(){
-  let board=rect(0,0,600,164,'#182c3c');
+  let board=rect(0,0,600,164,'#b8d0be')+rect(0,0,600,9,'#9b3945');
   for(const [i,name,value]of [[0,'NIKKEI','−5.1%'],[1,'KOSPI','−5.2%'],[2,'TAIEX','−6.2%']]){
-    const x=18+i*198;board+=text(x+88,40,name,24,'#e9f0ee','text-anchor="middle"')+text(x+88,103,value,48,'#ffaaa0','text-anchor="middle"');
+    const x=18+i*198;
+    const down=path(`M${x+8} 57H${x+17}V88H${x+26}L${x+12.5} 106L${x-1} 88H${x+8}Z`,'#9b3945');
+    board+=text(x+88,40,name,24,'#294638','text-anchor="middle"')+down+text(x+104,103,value,48,'#9b303e','text-anchor="middle"');
   }
-  return svg('markets',board+stripLabel('ASIAN STOCKS FALL'),'Friday’s reported Asian stock-index losses, not a fabricated intraday price series',164);
+  return svg('markets',board+rect(0,130,600,34,'#356b53')+text(300,156,'ASIAN STOCKS FALL',32,'#fff3d8','text-anchor="middle"'),'Friday’s reported Asian stock-index losses, not a fabricated intraday price series',164);
 }
 function reset(){
   let flags=rect(0,0,300,164,'#285088')+rect(300,0,300,164,'#163c6c');
@@ -66,8 +67,9 @@ function diamonds(){
 }
 function inflation(){
   const skyline=city(130,'#7c939d',7)+path('M65 130L82 43L100 130Z','#b34a4c')+line('M83 19V130M65 109H101M72 81H94','#e9dbbd',2);
-  const board=rect(271,9,312,118,'#f3efdf')+text(427,24,'CORE CPI · OCTOBER',18,'#38535e','text-anchor="middle"')+text(427,91,'2.2%',60,'#9d3649','text-anchor="middle"')+text(427,123,'YEAR ON YEAR',14,'#38535e','text-anchor="middle"');
-  return svg('cpi',rect(0,0,600,164,'url(#cpi-air)')+skyline+circle(207,37,28,'#c25858','opacity=".7"')+board+stripLabel('JAPAN · OCTOBER CORE CPI'),'Japan releases October core CPI at 2.2 percent year on year',164);
+  const up=path('M303 102V66H292L310 42L328 66H317V102Z','#ad3945');
+  const board=rect(271,9,312,118,'#c9e0e1')+rect(271,9,312,8,'#528f98')+text(427,35,'CORE CPI · OCTOBER',18,'#294c52','text-anchor="middle"')+up+text(451,94,'2.2%',60,'#9d3649','text-anchor="middle"')+text(451,123,'YEAR ON YEAR',14,'#294c52','text-anchor="middle"');
+  return svg('cpi',rect(0,0,600,164,'#edd0b6')+skyline+circle(207,37,28,'#c4514c')+board+rect(0,130,600,34,'#377b87')+text(300,156,'JAPAN · OCTOBER CORE CPI',32,'#fff3d8','text-anchor="middle"'),'Japan releases October core CPI at 2.2 percent year on year',164);
 }
 function mercury(){
   const stars=Array.from({length:31},(_,i)=>circle((i*73+19)%600,(i*47+13)%185,i%3===0?1.7:1,'#b2c2cf')).join('');
